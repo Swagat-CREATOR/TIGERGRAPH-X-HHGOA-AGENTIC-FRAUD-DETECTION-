@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="auto" viewBox="0 0 2200 1350" preserveAspectRatio="xMidYMid meet" style="max-width:100%;height:auto;display:block">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#0b1c4a" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrowNavy" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#233e95"/></marker>
+    <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#4f8c62"/></marker>
+    <marker id="arrowCoral" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#d8794d"/></marker>
+    <marker id="arrowPurple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#7854ad"/></marker>
+    <style>
+      .title{font:800 64px Arial,Helvetica,sans-serif;fill:#101a4d;letter-spacing:-1px}
+      .subtitle{font:500 23px Arial,Helvetica,sans-serif;fill:#52607f;letter-spacing:.5px}
+      .panelTitle{font:800 24px Arial,Helvetica,sans-serif;fill:#14245d}
+      .section{font:800 21px Arial,Helvetica,sans-serif;fill:#14245d}
+      .body{font:500 17px Arial,Helvetica,sans-serif;fill:#263454}
+      .small{font:500 15px Arial,Helvetica,sans-serif;fill:#3e4d70}
+      .tiny{font:500 13px Arial,Helvetica,sans-serif;fill:#53617f}
+      .whiteTitle{font:800 25px Arial,Helvetica,sans-serif;fill:#fff}
+      .cardHead{font:800 20px Arial,Helvetica,sans-serif;fill:#14245d}
+      .pill{font:700 15px Arial,Helvetica,sans-serif;fill:#14245d}
+      .labelN{font:700 15px Arial,Helvetica,sans-serif;fill:#233e95}
+      .labelG{font:700 15px Arial,Helvetica,sans-serif;fill:#4f8c62}
+      .labelC{font:700 15px Arial,Helvetica,sans-serif;fill:#d8794d}
+      .labelP{font:700 15px Arial,Helvetica,sans-serif;fill:#7854ad}
+    </style>
+  </defs>
+
+  <rect width="2200" height="1350" fill="#fbfcff"/>
+  <rect x="0" y="0" width="2200" height="14" fill="#172a70"/>
+  <text x="70" y="86" class="title">HHGOA Architecture</text>
+  <text x="72" y="123" class="subtitle">Agentic fraud investigation on TigerGraph · one shared model, three evidence pipelines</text>
+  <text x="2115" y="87" text-anchor="end" class="tiny">CUSTOM SYSTEM VIEW</text>
+
+  <!-- left: analyst and inputs -->
+  <rect x="64" y="185" width="350" height="300" rx="22" fill="#fff" stroke="#5166b1" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="239" y="226" text-anchor="middle" class="panelTitle">Analyst Dashboard</text>
+  <rect x="99" y="255" width="280" height="145" rx="12" fill="#121c31"/>
+  <rect x="116" y="273" width="246" height="9" rx="4" fill="#6f80d8"/>
+  <rect x="116" y="299" width="110" height="8" rx="4" fill="#72809f"/>
+  <rect x="116" y="322" width="190" height="8" rx="4" fill="#415070"/>
+  <rect x="116" y="345" width="155" height="8" rx="4" fill="#415070"/>
+  <circle cx="329" cy="326" r="28" fill="none" stroke="#db8557" stroke-width="4"/>
+  <circle cx="329" cy="326" r="6" fill="#db8557"/>
+  <line x1="329" y1="298" x2="329" y2="354" stroke="#db8557" stroke-width="3"/>
+  <line x1="301" y1="326" x2="357" y2="326" stroke="#db8557" stroke-width="3"/>
+  <line x1="309" y1="306" x2="349" y2="346" stroke="#db8557" stroke-width="3"/>
+  <line x1="349" y1="306" x2="309" y2="346" stroke="#db8557" stroke-width="3"/>
+  <text x="239" y="438" text-anchor="middle" class="section">Case review · findings · actions · traces</text>
+  <text x="239" y="463" text-anchor="middle" class="small">Read-only generated from on-disk case answers</text>
+
+  <rect x="64" y="535" width="350" height="302" rx="22" fill="#fff" stroke="#5166b1" stroke-width="2.5"/>
+  <text x="239" y="577" text-anchor="middle" class="panelTitle">Inputs &amp; Evaluation</text>
+  <line x1="96" y1="602" x2="382" y2="602" stroke="#d6dcf1" stroke-width="2"/>
+  <text x="99" y="636" class="section">Case inputs</text>
+  <text x="99" y="666" class="body">case_pack.csv · trigger + IDs</text>
+  <text x="99" y="692" class="body">heldout_txns.csv · identity.csv</text>
+  <text x="99" y="736" class="section">Measured outputs</text>
+  <text x="99" y="766" class="body">case JSON · traces · scoreboards</text>
+  <text x="99" y="792" class="body">P1 / P2 / P3 lift + token cost</text>
+  <text x="99" y="823" class="tiny">Leakage-safe, customer-disjoint held-out eval</text>
+
+  <!-- center runtime -->
+  <rect x="484" y="175" width="1030" height="660" rx="26" fill="#fff" stroke="#3d4f9f" stroke-width="3" filter="url(#shadow)"/>
+  <rect x="484" y="175" width="1030" height="62" rx="24" fill="#172a70"/>
+  <rect x="484" y="213" width="1030" height="24" fill="#172a70"/>
+  <text x="999" y="216" text-anchor="middle" class="whiteTitle">Shared Investigation Runtime</text>
+  <text x="999" y="263" text-anchor="middle" class="tiny">same model · same policy · same answer schema · only evidence exposure changes</text>
+
+  <!-- pipeline cards -->
+  <rect x="520" y="293" width="300" height="180" rx="16" fill="#f4f7ff" stroke="#8093db" stroke-width="2"/>
+  <rect x="520" y="293" width="300" height="37" rx="16" fill="#e3e9ff"/>
+  <text x="541" y="319" class="cardHead">P1 · Plain RAG</text>
+  <text x="542" y="360" class="body">Document retrieval only</text>
+  <text x="542" y="389" class="small">Policy + pattern docs</text>
+  <text x="542" y="417" class="small">One structured LLM call</text>
+  <text x="542" y="449" class="labelN">0 live graph tool calls</text>
+
+  <rect x="850" y="293" width="300" height="180" rx="16" fill="#f7fbf4" stroke="#80ad82" stroke-width="2"/>
+  <rect x="850" y="293" width="300" height="37" rx="16" fill="#e4f2e4"/>
+  <text x="871" y="319" class="cardHead">P2 · GraphRAG</text>
+  <text x="872" y="360" class="body">Docs + fixed graph bundle</text>
+  <text x="872" y="389" class="small">48h window + card history</text>
+  <text x="872" y="417" class="small">neighbors + precedents</text>
+  <text x="872" y="449" class="labelG">One-shot, non-agentic</text>
+
+  <rect x="1180" y="293" width="300" height="180" rx="16" fill="#fff8f3" stroke="#db9b78" stroke-width="2"/>
+  <rect x="1180" y="293" width="300" height="37" rx="16" fill="#ffeadf"/>
+  <text x="1201" y="319" class="cardHead">P3 · Agentic GraphRAG</text>
+  <text x="1202" y="360" class="body">Plan → act → observe</text>
+  <text x="1202" y="389" class="small">LLM chooses evidence tools</text>
+  <text x="1202" y="417" class="small">Stop when evidence settles</text>
+  <text x="1202" y="449" class="labelC">Required deliverable</text>
+
+  <!-- shared spine -->
+  <rect x="520" y="503" width="960" height="148" rx="18" fill="#fbf9ff" stroke="#8d72bd" stroke-width="2"/>
+  <text x="551" y="536" class="section">Shared decision spine</text>
+  <rect x="551" y="558" width="212" height="58" rx="14" fill="#fff" stroke="#b7a6dc" stroke-width="1.5"/>
+  <text x="657" y="584" text-anchor="middle" class="pill">One shared LLM</text>
+  <text x="657" y="604" text-anchor="middle" class="tiny">provider fallback chain</text>
+  <rect x="785" y="558" width="212" height="58" rx="14" fill="#fff" stroke="#b7a6dc" stroke-width="1.5"/>
+  <text x="891" y="584" text-anchor="middle" class="pill">Policy + route matrix</text>
+  <text x="891" y="604" text-anchor="middle" class="tiny">deterministic approvals</text>
+  <rect x="1019" y="558" width="212" height="58" rx="14" fill="#fff" stroke="#b7a6dc" stroke-width="1.5"/>
+  <text x="1125" y="584" text-anchor="middle" class="pill">Pydantic answer schema</text>
+  <text x="1125" y="604" text-anchor="middle" class="tiny">strict case JSON</text>
+  <rect x="1253" y="558" width="197" height="58" rx="14" fill="#fff" stroke="#b7a6dc" stroke-width="1.5"/>
+  <text x="1351" y="584" text-anchor="middle" class="pill">Validator + repair</text>
+  <text x="1351" y="604" text-anchor="middle" class="tiny">bounded loop</text>
+
+  <rect x="520" y="677" width="960" height="119" rx="18" fill="#f1f4ff" stroke="#8093db" stroke-width="2"/>
+  <text x="551" y="711" class="section">Generated case record</text>
+  <text x="551" y="742" class="body">Verdict · pattern · evidence · NBA + approval route · SAR draft</text>
+  <text x="551" y="770" class="body">measured tokens / tool calls / latency · write-back as InvestigationCase</text>
+
+  <!-- right: access and stores -->
+  <rect x="1570" y="175" width="566" height="660" rx="26" fill="#fff" stroke="#5166b1" stroke-width="3" filter="url(#shadow)"/>
+  <rect x="1570" y="175" width="566" height="59" rx="24" fill="#1f367e"/>
+  <rect x="1570" y="211" width="566" height="23" fill="#1f367e"/>
+  <text x="1853" y="215" text-anchor="middle" class="whiteTitle">TigerGraph + GRIP / MCP</text>
+  <text x="1853" y="263" text-anchor="middle" class="tiny">local stdio access · graph and document retrieval</text>
+
+  <rect x="1603" y="293" width="500" height="170" rx="18" fill="#f6f8ff" stroke="#8597d2" stroke-width="2"/>
+  <text x="1630" y="329" class="section">GRIP MCP tool layer</text>
+  <text x="1630" y="361" class="small">knowledge_search · transaction_features</text>
+  <text x="1630" y="388" class="small">card_window · card_txn_history</text>
+  <text x="1630" y="415" class="small">device_neighbors · connected_cards</text>
+  <text x="1630" y="442" class="small">region_activity · similar_closed_cases</text>
+
+  <rect x="1603" y="489" width="500" height="190" rx="18" fill="#fff8f3" stroke="#db9b78" stroke-width="2"/>
+  <text x="1630" y="525" class="section">FraudInvestigation graph</text>
+  <text x="1630" y="556" class="body">Customer · Card · Transaction</text>
+  <text x="1630" y="583" class="body">DeviceProfile · EmailDomain · BillingRegion</text>
+  <text x="1630" y="610" class="body">ClosedCase · InvestigationCase</text>
+  <text x="1630" y="646" class="labelC">relationships reveal bursts, rings, regions</text>
+
+  <rect x="1603" y="705" width="500" height="95" rx="18" fill="#f7fbf4" stroke="#80ad82" stroke-width="2"/>
+  <text x="1630" y="739" class="section">Graph-backed knowledge layer</text>
+  <text x="1630" y="770" class="small">Paper · Author · Concept · PaperEmb vector search</text>
+
+  <!-- bottom row -->
+  <rect x="64" y="925" width="610" height="276" rx="22" fill="#fff" stroke="#80ad82" stroke-width="2.5"/>
+  <text x="369" y="967" text-anchor="middle" class="panelTitle">Data Prep &amp; Graph Build</text>
+  <line x1="98" y1="989" x2="640" y2="989" stroke="#d6ead7" stroke-width="2"/>
+  <text x="100" y="1024" class="body">create_graph · graph/doc schema jobs</text>
+  <text x="100" y="1053" class="body">load_exam · load_closed_cases · load_heldout_txns</text>
+  <text x="100" y="1082" class="body">ingest_knowledge via GRIP</text>
+  <text x="100" y="1122" class="small">Targeted subgraphs + leakage-safe split</text>
+  <text x="100" y="1151" class="small">Direct GSQL is a fallback behind the same adapter</text>
+
+  <rect x="718" y="925" width="796" height="276" rx="22" fill="#fff" stroke="#8d72bd" stroke-width="2.5"/>
+  <text x="1116" y="967" text-anchor="middle" class="panelTitle">Operational Loop &amp; Evidence</text>
+  <line x1="752" y1="989" x2="1480" y2="989" stroke="#dfd6ef" stroke-width="2"/>
+  <text x="754" y="1024" class="body">1. Trigger arrives → model plans investigation</text>
+  <text x="754" y="1053" class="body">2. Tools fetch targeted graph / knowledge evidence</text>
+  <text x="754" y="1082" class="body">3. Findings drive verdict, actions, SAR, and case memory</text>
+  <text x="754" y="1122" class="small">Stop rule: evidence settles at high / low confidence</text>
+  <text x="754" y="1151" class="small">P3 records every MCP step for replayable audit</text>
+
+  <rect x="1570" y="925" width="566" height="276" rx="22" fill="#fff" stroke="#db9b78" stroke-width="2.5"/>
+  <text x="1853" y="967" text-anchor="middle" class="panelTitle">Observability &amp; Evaluation</text>
+  <line x1="1604" y1="989" x2="2102" y2="989" stroke="#f0d8ca" stroke-width="2"/>
+  <text x="1606" y="1024" class="body">Tokens · tool calls · latency</text>
+  <text x="1606" y="1053" class="body">case traces + violations</text>
+  <text x="1606" y="1082" class="body">P1 → P2 → P3 committed-verdict lift</text>
+  <text x="1606" y="1122" class="small">Exam: 20 cases · held-out: customer-disjoint eval</text>
+  <text x="1606" y="1151" class="small">No-API scoreboard rebuilds from on-disk answers</text>
+
+  <!-- arrows and labels -->
+  <path d="M414 324 C445 324 452 324 484 324" fill="none" stroke="#233e95" stroke-width="3" marker-end="url(#arrowNavy)"/>
+  <text x="449" y="309" text-anchor="middle" class="labelN">case query</text>
+  <path d="M484 429 C452 429 445 429 414 429" fill="none" stroke="#4f8c62" stroke-width="3" marker-end="url(#arrowGreen)"/>
+  <text x="449" y="414" text-anchor="middle" class="labelG">answer</text>
+  <path d="M414 655 C448 655 456 655 484 655" fill="none" stroke="#7854ad" stroke-width="3" stroke-dasharray="10 8" marker-end="url(#arrowPurple)"/>
+  <text x="449" y="640" text-anchor="middle" class="labelP">case inputs</text>
+
+  <path d="M1514 410 C1537 410 1544 410 1570 410" fill="none" stroke="#d8794d" stroke-width="3" marker-end="url(#arrowCoral)"/>
+  <text x="1542" y="394" text-anchor="middle" class="labelC">tools / search</text>
+  <path d="M1570 555 C1544 555 1537 555 1514 555" fill="none" stroke="#4f8c62" stroke-width="3" marker-end="url(#arrowGreen)"/>
+  <text x="1542" y="539" text-anchor="middle" class="labelG">evidence</text>
+
+  <path d="M1116 835 L1116 925" fill="none" stroke="#7854ad" stroke-width="3" stroke-dasharray="10 8" marker-end="url(#arrowPurple)"/>
+  <text x="1132" y="880" class="labelP">writes trace + case record</text>
+  <path d="M800 925 C800 873 767 848 728 835" fill="none" stroke="#80ad82" stroke-width="3" marker-end="url(#arrowGreen)"/>
+  <text x="760" y="880" text-anchor="middle" class="labelG">loads graph</text>
+  <path d="M1360 925 C1360 873 1395 848 1420 835" fill="none" stroke="#db9b78" stroke-width="3" marker-end="url(#arrowCoral)"/>
+  <text x="1417" y="880" text-anchor="middle" class="labelC">measures</text>
+  <path d="M1853 835 L1853 925" fill="none" stroke="#233e95" stroke-width="3" marker-end="url(#arrowNavy)"/>
+  <text x="1870" y="880" class="labelN">audit / score</text>
+
+  <text x="70" y="1283" class="tiny">Architecture synthesized from README.md, PLAN.md, src/pipelines.py, src/tools.py, src/graph_schema.gsql, src/doc_schema.gsql, and the generated UI.</text>
+  <text x="2130" y="1283" text-anchor="end" class="tiny">HHGOA · TigerGraph</text>
+</svg>
+

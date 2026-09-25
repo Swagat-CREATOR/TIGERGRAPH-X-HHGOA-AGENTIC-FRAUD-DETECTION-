@@ -1,0 +1,40 @@
+// GRIP knowledge-doc ontology, added to the live FraudInvestigation graph.
+//
+// GRIP's document ingest + GraphRAG search are hardwired to a Paper/Author/
+// Concept ontology (mcp_server/contracts/construction.py, adapters/
+// tigergraph_queries.py). graphrag_ingest upserts Paper + Author/Concept and
+// AUTHORED_BY/MENTIONS/CITES edges; graphrag_local_search / global_search /
+// provenance run installed GSQL (tg_local_search etc.) over exactly these
+// types. So to use GRIP natively as our knowledge layer we ADD its ontology
+// here (LOCAL types, same as the fraud schema) rather than reinventing it.
+//
+// PaperEmb + a 512-dim COSINE vector attribute must EXIST (even if empty) or
+// GRIP's all-or-nothing query installer fails to compile tg_vector_search and
+// no search query installs. Populating the embeddings is the vector tier;
+// keyword+graph GraphRAG works the moment Paper vertices exist.
+//
+// Attribute shapes are dictated by GRIP:
+//   Paper.id/title/abstract  <- construction._write_document upsert
+//   Author.name / Concept.name <- upsertVertex(type, id, {"name": id})
+//   tg_* queries filter Paper.id, Author.name, Concept.name, Paper.title/abstract
+//   tg_vector_search -> vectorSearch({PaperEmb.abstract_embedding}, ...) dim 512
+
+USE GRAPH FraudInvestigation
+CREATE SCHEMA_CHANGE JOB fi_docs FOR GRAPH FraudInvestigation {
+  ADD VERTEX Paper (PRIMARY_ID id STRING, title STRING, abstract STRING, categories STRING, published DATETIME, abstract_token_count INT) WITH PRIMARY_ID_AS_ATTRIBUTE="true";
+  ADD VERTEX Author (PRIMARY_ID id STRING, name STRING) WITH PRIMARY_ID_AS_ATTRIBUTE="true";
+  ADD VERTEX Concept (PRIMARY_ID id STRING, name STRING) WITH PRIMARY_ID_AS_ATTRIBUTE="true";
+  ADD VERTEX PaperEmb (PRIMARY_ID id STRING) WITH PRIMARY_ID_AS_ATTRIBUTE="true";
+
+  ADD DIRECTED EDGE AUTHORED_BY (FROM Paper, TO Author) WITH REVERSE_EDGE="AUTHORED_BY_reverse";
+  ADD DIRECTED EDGE MENTIONS (FROM Paper, TO Concept) WITH REVERSE_EDGE="MENTIONS_reverse";
+  ADD DIRECTED EDGE CITES (FROM Paper, TO Paper) WITH REVERSE_EDGE="CITES_reverse";
+}
+RUN SCHEMA_CHANGE JOB fi_docs
+
+USE GRAPH FraudInvestigation
+CREATE SCHEMA_CHANGE JOB fi_docs_vec FOR GRAPH FraudInvestigation {
+  ALTER VERTEX PaperEmb ADD VECTOR ATTRIBUTE abstract_embedding(DIMENSION=512, METRIC="COSINE", INDEXTYPE="HNSW", DATATYPE="FLOAT");
+}
+RUN SCHEMA_CHANGE JOB fi_docs_vec
+

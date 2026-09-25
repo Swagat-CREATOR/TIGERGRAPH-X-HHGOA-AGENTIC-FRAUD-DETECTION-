@@ -1,0 +1,38 @@
+// FraudInvestigation graph schema (HHGOA) — README "Suggested graph schema",
+// pruned per ADR-0004. V / most C·D·M columns are NOT stored; the
+// transaction_features tool fetches them on demand from the CSV.
+//
+// LOCAL types (schema-change job on an empty graph) so nothing touches the
+// demo's GLOBAL types — the demo has a global `Card`/`Device`, which a global
+// CREATE VERTEX here would collide with. Local types are scoped to this graph.
+//
+// Reverse edges let ring detection traverse Device/Region/Email -> Transaction
+// -> Card (README: "devices and regions connect people").
+
+CREATE GRAPH FraudInvestigation ()
+
+USE GRAPH FraudInvestigation
+CREATE SCHEMA_CHANGE JOB fi_schema FOR GRAPH FraudInvestigation {
+  ADD VERTEX Customer (PRIMARY_ID customer_id STRING) WITH PRIMARY_ID_AS_ATTRIBUTE="true";
+  ADD VERTEX Card (PRIMARY_ID card_id STRING, customer_id STRING, issuer STRING, network STRING, card_type STRING) WITH PRIMARY_ID_AS_ATTRIBUTE="true";
+  ADD VERTEX Transaction (PRIMARY_ID txn_id STRING, amount DOUBLE, ts DATETIME, dt INT, channel STRING, product_cd STRING, risk_score DOUBLE, addr1 STRING, p_email STRING, r_email STRING) WITH PRIMARY_ID_AS_ATTRIBUTE="true";
+  ADD VERTEX DeviceProfile (PRIMARY_ID device_id STRING, device_type STRING, device_info STRING, os STRING, browser STRING, screen STRING, is_new STRING) WITH PRIMARY_ID_AS_ATTRIBUTE="true";
+  ADD VERTEX EmailDomain (PRIMARY_ID domain STRING) WITH PRIMARY_ID_AS_ATTRIBUTE="true";
+  ADD VERTEX BillingRegion (PRIMARY_ID region STRING) WITH PRIMARY_ID_AS_ATTRIBUTE="true";
+  ADD VERTEX ClosedCase (PRIMARY_ID case_id STRING, customer_id STRING, card_id STRING, outcome STRING, pattern STRING, exposure_usd DOUBLE, n_txns INT, opened_at STRING, closed_at STRING, report_filed STRING, analyst_notes STRING) WITH PRIMARY_ID_AS_ATTRIBUTE="true";
+  ADD VERTEX InvestigationCase (PRIMARY_ID graph_case_id STRING, case_id STRING, verdict STRING, pattern STRING, fraud_probability DOUBLE, exposure_usd DOUBLE, status STRING, summary STRING, created_at STRING) WITH PRIMARY_ID_AS_ATTRIBUTE="true";
+
+  ADD DIRECTED EDGE OWNS (FROM Customer, TO Card) WITH REVERSE_EDGE="OWNS_reverse";
+  ADD DIRECTED EDGE MADE (FROM Card, TO Transaction) WITH REVERSE_EDGE="MADE_reverse";
+  ADD DIRECTED EDGE FROM_DEVICE (FROM Transaction, TO DeviceProfile) WITH REVERSE_EDGE="FROM_DEVICE_reverse";
+  ADD DIRECTED EDGE PURCHASER_EMAIL (FROM Transaction, TO EmailDomain) WITH REVERSE_EDGE="PURCHASER_EMAIL_reverse";
+  ADD DIRECTED EDGE BILLED_IN (FROM Transaction, TO BillingRegion) WITH REVERSE_EDGE="BILLED_IN_reverse";
+  ADD DIRECTED EDGE NEXT (FROM Transaction, TO Transaction) WITH REVERSE_EDGE="NEXT_reverse";
+  ADD DIRECTED EDGE INVOLVES (FROM ClosedCase, TO Transaction) WITH REVERSE_EDGE="INVOLVES_reverse";
+  ADD DIRECTED EDGE ON_CARD (FROM ClosedCase, TO Card) WITH REVERSE_EDGE="ON_CARD_reverse";
+  ADD DIRECTED EDGE CONNECTED_TO (FROM ClosedCase, TO Card) WITH REVERSE_EDGE="CONNECTED_TO_reverse";
+  ADD DIRECTED EDGE CASE_ON_CARD (FROM InvestigationCase, TO Card) WITH REVERSE_EDGE="CASE_ON_CARD_reverse";
+  ADD DIRECTED EDGE CASE_INVOLVES (FROM InvestigationCase, TO Transaction) WITH REVERSE_EDGE="CASE_INVOLVES_reverse";
+}
+RUN SCHEMA_CHANGE JOB fi_schema
+

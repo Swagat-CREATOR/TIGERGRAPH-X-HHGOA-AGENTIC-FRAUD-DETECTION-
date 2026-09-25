@@ -1,0 +1,23 @@
+# --- Core ---
+pydantic>=2.7
+python-dotenv>=1.0
+
+# --- Agent + LLM (Gemini 2.5 Flash via Google) ---
+# slim keeps the install lean (disk-constrained box); [google] pulls google-genai.
+pydantic-ai-slim[google]
+
+# --- TigerGraph ---
+# Direct GSQL / REST++ client. This is the *internal* fallback behind the
+# graph-client adapter; TigerGraph MCP is the primary, demonstrated interface.
+pyTigerGraph>=1.6
+
+# --- Embeddings: all-MiniLM-L6-v2 (384-dim) as ONNX, NO torch (light on disk) ---
+fastembed>=0.3
+
+# --- Memory-efficient scan/filter of the 708 MB transactions.csv (targeted loads) ---
+polars>=1.0
+
+# --- UI (Step 7) + tests ---
+streamlit>=1.36
+pytest>=8.0
+

@@ -1,0 +1,84 @@
+{
+  "case_id": "HHG-004",
+  "model_version": "qwen/qwen3.8-max:free",
+  "snapshot_id": "",
+  "evidence_value": [],
+  "action_projections": [],
+  "tool_trace": [
+    {
+      "step": 0,
+      "tool": "transaction_features",
+      "args": {
+        "txn_id": "3583227"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3583227\", \"found\": true, \"amount\": 128.33, \"product_cd\": \"C\", \"channel\": \"online\", \"risk_score\": 0.34, \"region\": \"\", \"addr2\": \"\", \"p_email\": \"hotmail.com\", \"r_email\": \"hotmail.com\", \"ts\": \"2016-12-29 01:53:54\", \"customer_id\": \"C08106\", \"device\": {\"type\": \"desktop\", \"info\": \"\", \"os\": \"\", ",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 1,
+      "tool": "card_txn_history",
+      "args": {
+        "card_id": "C08106-K1"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C08106-K1\", \"n\": 40, \"transactions\": [{\"txn_id\": \"3587858\", \"amount\": 18.09, \"ts\": \"2016-12-30 23:24:57\", \"channel\": \"online\", \"product_cd\": \"C\", \"risk_score\": 0.07, \"region\": \"\", \"p_email\": \"hotmail.com\"}, {\"txn_id\": \"3585726\", \"amount\": 22.76, \"ts\": \"2016-12-30 02:24:07\", \"channel\": \"",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 2,
+      "tool": "device_neighbors",
+      "args": {
+        "txn_id": "3583227"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3583227\", \"device_id\": \"firefox 47.0\", \"device_info\": \"\", \"is_new\": \"New\", \"n_cards\": 1, \"cards\": [{\"card_id\": \"C08106-K1\", \"customer_id\": \"C08106\"}]}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 3,
+      "tool": "connected_cards",
+      "args": {
+        "card_id": "C08106-K1"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C08106-K1\", \"shared_devices\": [\"SM-J700M Build/MMB29K||chrome 65.0 for android\", \"edge 16.0\", \"Grand2c||android webview 4.0\", \"SAMSUNG SM-J730GM Build/NRD90M||samsung browser 6.2\", \"ZTE Blade L5 Build/LMY47I||chrome 60.0 for android\", \"LG-M700 Build/NMF26X||chrome 64.0 for android\", \"Z9",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 4,
+      "tool": "card_window",
+      "args": {
+        "txn_id": "3583227",
+        "hours": 6
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3583227\", \"card_id\": \"C08106-K1\", \"hours\": 6, \"n\": 1, \"window\": [{\"txn_id\": \"3583227\", \"amount\": 128.33, \"ts\": \"2016-12-29 01:53:54\", \"channel\": \"online\", \"product_cd\": \"C\", \"risk_score\": 0.34, \"region\": \"\"}]}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 5,
+      "tool": "similar_closed_cases",
+      "args": {
+        "pattern": "card_not_present_new_device",
+        "exposure_usd": 128.33,
+        "top_k": 3
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"pattern\": \"card_not_present_new_device\", \"matched\": 400, \"returned\": 3, \"cases\": [{\"case_id\": \"CC-0945\", \"outcome\": \"confirmed_fraud\", \"pattern\": \"card_not_present_new_device\", \"exposure_usd\": 129.38, \"report_filed\": \"No\", \"analyst_notes\": \"Case CC-0945: cardholder C12971 reported unrecognized act",
+      "tokens": 0,
+      "latency_s": 0.0
+    }
+  ]
+}

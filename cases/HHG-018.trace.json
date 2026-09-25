@@ -1,0 +1,69 @@
+{
+  "case_id": "HHG-018",
+  "model_version": "qwen/qwen3.8-max:free",
+  "snapshot_id": "",
+  "evidence_value": [],
+  "action_projections": [],
+  "tool_trace": [
+    {
+      "step": 0,
+      "tool": "transaction_features",
+      "args": {
+        "txn_id": "3491361"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3491361\", \"found\": true, \"amount\": 39.08, \"product_cd\": \"W\", \"channel\": \"in_person\", \"risk_score\": 0.48, \"region\": \"126.0\", \"addr2\": \"87.0\", \"p_email\": \"\", \"r_email\": \"\", \"ts\": \"2016-11-27 13:41:26\", \"customer_id\": \"C02354\", \"device\": {\"type\": \"\", \"info\": \"\", \"os\": \"\", \"browser\": \"\", \"sc",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 1,
+      "tool": "card_txn_history",
+      "args": {
+        "card_id": "C02354-K2"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C02354-K2\", \"n\": 40, \"transactions\": [{\"txn_id\": \"3587840\", \"amount\": 883.97, \"ts\": \"2016-12-30 23:18:12\", \"channel\": \"in_person\", \"product_cd\": \"W\", \"risk_score\": 0.31, \"region\": \"325.0\", \"p_email\": \"yahoo.com\"}, {\"txn_id\": \"3587836\", \"amount\": 884.02, \"ts\": \"2016-12-30 23:16:20\", \"cha",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 2,
+      "tool": "card_window",
+      "args": {
+        "txn_id": "3491361"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3491361\", \"card_id\": \"C02354-K2\", \"hours\": 48.0, \"n\": 158, \"window\": [{\"txn_id\": \"3486046\", \"amount\": 249.98, \"ts\": \"2016-11-25 13:54:21\", \"channel\": \"in_person\", \"product_cd\": \"W\", \"risk_score\": 0.1, \"region\": \"325.0\"}, {\"txn_id\": \"3486080\", \"amount\": 226.07, \"ts\": \"2016-11-25 14:10:19\"",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 3,
+      "tool": "connected_cards",
+      "args": {
+        "card_id": "C02354-K2"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C02354-K2\", \"shared_devices\": [\"LG-M210 Build/NRD90U|Android 7.0|chrome 65.0 for android|1280x720\", \"MacOS|Mac OS X 10_13_1|chrome 63.0|1440x900\", \"Windows|Windows 10|chrome 58.0|1280x1024\", \"iOS Device|iOS 11.2.5|mobile safari generic|2436x1125\", \"SAMSUNG SM-G920P Build/NRD90M|Android ",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 4,
+      "tool": "similar_closed_cases",
+      "args": {
+        "pattern": "none"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"pattern\": \"none\", \"matched\": 400, \"returned\": 5, \"cases\": [{\"case_id\": \"CC-1842\", \"outcome\": \"cleared\", \"pattern\": \"none\", \"exposure_usd\": 0, \"report_filed\": \"No\", \"analyst_notes\": \"Case CC-1842: model scored a $125.05 transaction at 0.91. Cardholder confirmed travel to the billing region in quest",
+      "tokens": 0,
+      "latency_s": 0.0
+    }
+  ]
+}

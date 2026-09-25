@@ -1,0 +1,144 @@
+{
+  "case_id": "HHG-011",
+  "case": {
+    "status": "open",
+    "verdict": "uncertain",
+    "fraud_probability": 0.85,
+    "pattern": "card_not_present_new_device",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3583368"
+    ],
+    "first_suspicious_txn_id": "3583368",
+    "connected_card_ids": [],
+    "connected_device_profiles": [
+      "5015A Build/LMY47I||chrome 55.0 for android",
+      "Linux x86_64||firefox 47.0",
+      "LGLS770||chrome 60.0 for android",
+      "SM-G531H Build/LMY48B||chrome 66.0 for android",
+      "LG-X240 Build/MRA58K||chrome generic for android",
+      "SM-A500FU Build/MMB29M||chrome 64.0 for android"
+    ],
+    "exposure_usd": 131.3,
+    "evidence": [
+      {
+        "claim": "Customer C11923 reported unrecognized $131.30 transaction 3583368.",
+        "source": "customer",
+        "ref": "customer_report",
+        "entity_ids": [
+          "C11923",
+          "3583368"
+        ]
+      },
+      {
+        "claim": "Transaction 3583368 occurred on a new device SM-G610F Build/NRD90M via online channel with risk_score 0.39.",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3583368",
+          "C11923-K2"
+        ]
+      },
+      {
+        "claim": "Device SM-G610F Build/NRD90M||chrome 66.0 for android is flagged as New and associated only with card C11923-K2.",
+        "source": "graph",
+        "ref": "device_neighbors",
+        "entity_ids": [
+          "3583368",
+          "C11923-K2"
+        ]
+      },
+      {
+        "claim": "Card C11923-K2 has 84 transactions in the 48h window around the flagged transaction, including repeated near-identical amounts suggesting testing.",
+        "source": "graph",
+        "ref": "card_window",
+        "entity_ids": [
+          "3583368",
+          "C11923-K2"
+        ]
+      },
+      {
+        "claim": "Card C11923-K2 shares multiple device profiles with other cards, indicating broad device usage.",
+        "source": "graph",
+        "ref": "connected_cards",
+        "entity_ids": [
+          "C11923-K2"
+        ]
+      },
+      {
+        "claim": "Similar closed cases CC-0078, CC-3347, CC-0945 matched pattern card_not_present_new_device with confirmed fraud outcomes and similar exposure.",
+        "source": "graph",
+        "ref": "similar_closed_cases",
+        "entity_ids": [
+          "CC-0078",
+          "CC-3347",
+          "CC-0945"
+        ]
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-0078",
+      "CC-3347",
+      "CC-0945"
+    ],
+    "summary": "Customer C11923 reported unrecognized transaction 3583368 for $131.30 on card C11923-K2. Investigation shows the transaction originated from a new mobile device. Card window analysis reveals 84 transactions in 48 hours with suspicious near-identical amounts prior to the flagged transaction. Three similar closed cases all resulted in confirmed fraud. Fraud probability assessed at 0.85 based on customer report, new device, and historical precedents.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-011"
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 0,
+      "assumed_response": "pending"
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy: open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: must propose VERIFY_WITH_CUSTOMER or STEP_UP_AUTH before BLOCK_CARD when p < 0.7 initially; also required to confirm fraud before final actions"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy: open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: verification step required"
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "R1: after verification proposed, block permitted for single card compromise"
+      },
+      {
+        "action": "ESCALATE_TO_ANALYST",
+        "route": "auto",
+        "reason": "R8: uncertain verdict with exposure > $500 requires ESCALATE_TO_ANALYST"
+      }
+    ],
+    "what_changed": "Added BLOCK_CARD and ESCALATE_TO_ANALYST after initial verification proposal per R1 and R8."
+  },
+  "sar": {
+    "file": false,
+    "reason": "Fraud probability 0.85 but verdict remains uncertain pending customer verification; §3a requires fraud confirmed or strongly suspected AND one of: exposure > $1000, shared device/region connection to another customer fraud, or coordinated pattern. Exposure is $131.30 (<$1000) and no direct evidence of coordination with another customer's fraud yet confirmed.",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0.0,
+    "activity_dates": []
+  },
+  "stop_reason": "§6 stop: p >= 0.85 reached with customer report, new device evidence, and matching closed cases (>=2 independent pieces of evidence).",
+  "tool_calls": 6,
+  "tokens": 50964,
+  "latency_s": 248.90012431144714
+}

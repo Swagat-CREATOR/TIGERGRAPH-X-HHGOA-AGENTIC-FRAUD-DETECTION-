@@ -1,0 +1,109 @@
+{
+  "case_id": "HHG-008",
+  "model_version": "qwen/qwen3.8-max:free",
+  "snapshot_id": "",
+  "evidence_value": [],
+  "action_projections": [],
+  "tool_trace": [
+    {
+      "step": 0,
+      "tool": "transaction_features",
+      "args": {
+        "txn_id": "3558054"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3558054\", \"found\": true, \"amount\": 55.68, \"product_cd\": \"C\", \"channel\": \"online\", \"risk_score\": 0.38, \"region\": \"\", \"addr2\": \"\", \"p_email\": \"hotmail.com\", \"r_email\": \"hotmail.com\", \"ts\": \"2016-12-19 22:08:56\", \"customer_id\": \"C13171\", \"device\": {\"type\": \"desktop\", \"info\": \"\", \"os\": \"\", \"",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 1,
+      "tool": "card_for_txn",
+      "args": {
+        "txn_id": "3558054"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3558054\", \"card_id\": \"C13171-K2\", \"customer_id\": \"C13171\"}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 2,
+      "tool": "card_txn_history",
+      "args": {
+        "card_id": "C13171-K2"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C13171-K2\", \"n\": 40, \"transactions\": [{\"txn_id\": \"3584321\", \"amount\": 18.68, \"ts\": \"2016-12-29 17:50:55\", \"channel\": \"online\", \"product_cd\": \"C\", \"risk_score\": 0.05, \"region\": \"\", \"p_email\": \"gmail.com\"}, {\"txn_id\": \"3580083\", \"amount\": 82.55, \"ts\": \"2016-12-27 21:37:27\", \"channel\": \"on",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 3,
+      "tool": "card_window",
+      "args": {
+        "txn_id": "3558054",
+        "hours": 24
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3558054\", \"card_id\": \"C13171-K2\", \"hours\": 24, \"n\": 8, \"window\": [{\"txn_id\": \"3555638\", \"amount\": 11.85, \"ts\": \"2016-12-18 23:43:14\", \"channel\": \"online\", \"product_cd\": \"C\", \"risk_score\": 0.02, \"region\": \"\"}, {\"txn_id\": \"3555768\", \"amount\": 65.36, \"ts\": \"2016-12-19 00:22:46\", \"channel\": ",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 4,
+      "tool": "device_neighbors",
+      "args": {
+        "txn_id": "3558054"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3558054\", \"device_id\": \"chrome 66.0\", \"device_info\": \"\", \"is_new\": \"New\", \"n_cards\": 5, \"cards\": [{\"card_id\": \"C13171-K2\", \"customer_id\": \"C13171\"}, {\"card_id\": \"C08106-K1\", \"customer_id\": \"C08106\"}, {\"card_id\": \"C11923-K2\", \"customer_id\": \"C11923\"}, {\"card_id\": \"C11923-KD1\", \"customer_i",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 5,
+      "tool": "connected_cards",
+      "args": {
+        "card_id": "C13171-K2"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C13171-K2\", \"shared_devices\": [\"SM-G955F Build/NRD90M||chrome 66.0 for android\", \"F5321||chrome 65.0 for android\", \"SM-G925I Build/NRD90M||chrome 65.0 for android\", \"SM-N900W8 Build/LRX21V||chrome generic\", \"edge 16.0\", \"Windows||edge 13.0\", \"LG-K220 Build/MXB48T||chrome 63.0 for androi",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 6,
+      "tool": "similar_closed_cases",
+      "args": {
+        "pattern": "card_not_present_new_device",
+        "exposure_usd": 55.68,
+        "top_k": 3
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"pattern\": \"card_not_present_new_device\", \"matched\": 400, \"returned\": 3, \"cases\": [{\"case_id\": \"CC-0948\", \"outcome\": \"confirmed_fraud\", \"pattern\": \"card_not_present_new_device\", \"exposure_usd\": 56.4, \"report_filed\": \"No\", \"analyst_notes\": \"Case CC-0948: cardholder C06855 reported unrecognized activ",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 7,
+      "tool": "knowledge_search",
+      "args": {
+        "query": "card not present new device fraud policy customer report",
+        "top_k": 3
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"hits\": [{\"id\": \"PATTERN-CNP-NEW-DEVICE\", \"title\": \"Card-not-present fraud from a new device\", \"snippet\": \"Same as card-not-present fraud, with the identity record marking the device as New for this account, sometimes behind a proxy. Stronger than plain card-not-present fraud, still not proof: peop",
+      "tokens": 0,
+      "latency_s": 0.0
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "case_id": "HHG-010",
+  "model_version": "qwen/qwen3.8-max:free",
+  "snapshot_id": "",
+  "evidence_value": [],
+  "action_projections": [],
+  "tool_trace": [
+    {
+      "step": 0,
+      "tool": "transaction_features",
+      "args": {
+        "txn_id": "3506725"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3506725\", \"found\": true, \"amount\": 1000.03, \"product_cd\": \"R\", \"channel\": \"online\", \"risk_score\": 0.9, \"region\": \"469.0\", \"addr2\": \"87.0\", \"p_email\": \"anonymous.com\", \"r_email\": \"anonymous.com\", \"ts\": \"2016-12-02 15:18:27\", \"customer_id\": \"C10434\", \"device\": {\"type\": \"desktop\", \"info\": \"",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 1,
+      "tool": "card_window",
+      "args": {
+        "txn_id": "3506725",
+        "hours": 24
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3506725\", \"card_id\": \"C10434-K1\", \"hours\": 24, \"n\": 1, \"window\": [{\"txn_id\": \"3506725\", \"amount\": 1000.03, \"ts\": \"2016-12-02 15:18:27\", \"channel\": \"online\", \"product_cd\": \"R\", \"risk_score\": 0.9, \"region\": \"469.0\"}]}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 2,
+      "tool": "device_neighbors",
+      "args": {
+        "txn_id": "3506725"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3506725\", \"device_id\": \"Windows|Windows 10|edge 16.0|1366x768\", \"device_info\": \"Windows\", \"is_new\": \"New\", \"n_cards\": 3, \"cards\": [{\"card_id\": \"C02354-K2\", \"customer_id\": \"C02354\"}, {\"card_id\": \"C10434-K1\", \"customer_id\": \"C10434\"}, {\"card_id\": \"C07987-K2\", \"customer_id\": \"C07987\"}]}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 3,
+      "tool": "connected_cards",
+      "args": {
+        "card_id": "C10434-K1"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C10434-K1\", \"shared_devices\": [\"MacOS|Mac OS X 10_13_3|chrome 66.0|1600x900\", \"MacOS|Mac OS X 10_10_5|chrome 65.0|1280x800\", \"iOS Device|iOS 11.2.1|mobile safari 11.0|2436x1125\", \"iOS Device|iOS 11.2.5|mobile safari generic|1136x640\", \"MacOS|Mac OS X 10_13_4|safari generic|1440x900\", \"M",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 4,
+      "tool": "similar_closed_cases",
+      "args": {
+        "pattern": "account_takeover",
+        "exposure_usd": 1000.03,
+        "top_k": 3
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"pattern\": \"account_takeover\", \"matched\": 400, \"returned\": 3, \"cases\": [{\"case_id\": \"CC-2752\", \"outcome\": \"confirmed_fraud\", \"pattern\": \"account_takeover\", \"exposure_usd\": 994.08, \"report_filed\": \"No\", \"analyst_notes\": \"Case CC-2752: cardholder C11970 reported unrecognized activity on card C11970-K",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 5,
+      "tool": "knowledge_search",
+      "args": {
+        "query": "account takeover shared device new device credential compromise SAR filing",
+        "top_k": 3
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"hits\": [{\"id\": \"PATTERN-CNP-NEW-DEVICE\", \"title\": \"Card-not-present fraud from a new device\", \"snippet\": \"Same as card-not-present fraud, with the identity record marking the device as New for this account, sometimes behind a proxy. Stronger than plain card-not-present fraud, still not proof: peop",
+      "tokens": 0,
+      "latency_s": 0.0
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "case_id": "HHG-012",
+  "case": {
+    "status": "open",
+    "verdict": "uncertain",
+    "fraud_probability": 0.55,
+    "pattern": "out_of_region_use",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3553342"
+    ],
+    "first_suspicious_txn_id": "3553342",
+    "connected_card_ids": [],
+    "connected_device_profiles": [],
+    "exposure_usd": 30.91,
+    "evidence": [
+      {
+        "claim": "Transaction 3553342 scored 0.55 by real-time model, amount $30.91 in region 494.0 on card C05876-K2.",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3553342",
+          "C05876-K2",
+          "C05876"
+        ]
+      },
+      {
+        "claim": "Prior transaction 3553253 occurred in region 476.0 within one hour with risk score 0.02.",
+        "source": "graph",
+        "ref": "card_window",
+        "entity_ids": [
+          "3553253",
+          "3553342",
+          "C05876-K2"
+        ]
+      },
+      {
+        "claim": "Card history shows consistent multi-region in-person spending with low risk scores, indicating travel behavior.",
+        "source": "graph",
+        "ref": "card_txn_history",
+        "entity_ids": [
+          "C05876-K2"
+        ]
+      },
+      {
+        "claim": "No device fingerprint captured for this in-person transaction; no neighboring cards linked.",
+        "source": "graph",
+        "ref": "device_neighbors",
+        "entity_ids": [
+          "3553342"
+        ]
+      },
+      {
+        "claim": "Similar closed cases CC-1574, CC-4914, CC-3429 involved confirmed out-of-region fraud at ~$31 amounts.",
+        "source": "graph",
+        "ref": "similar_closed_cases",
+        "entity_ids": [
+          "CC-1574",
+          "CC-4914",
+          "CC-3429"
+        ]
+      },
+      {
+        "claim": "Fraud probability >= 0.3 requires opening a case per Fraud Policy v1.0.",
+        "source": "document",
+        "ref": "document:POLICY-CREATE_CASE",
+        "entity_ids": []
+      },
+      {
+        "claim": "R1 prohibits blocking or declining on a single weak signal (p < 0.7) without first proposing VERIFY_WITH_CUSTOMER or STEP_UP_AUTH.",
+        "source": "document",
+        "ref": "document:POLICY-R1",
+        "entity_ids": []
+      },
+      {
+        "claim": "R8 requires ESCALATE_TO_ANALYST in final actions when verdict is uncertain and exposure > $500.",
+        "source": "document",
+        "ref": "document:POLICY-R8",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-1574",
+      "CC-4914",
+      "CC-3429"
+    ],
+    "summary": "Transaction 3553342 was flagged with model risk score 0.55. Evidence shows the cardholder has a history of multi-region in-person travel spending, which lowers suspicion. However, similar closed cases confirm fraud at nearly identical amounts in out-of-region scenarios. Given p=0.55, a case is opened and customer verification is proposed per R1. Verdict is uncertain. Exposure is $30.91 (<$500), so R8 escalation is not triggered.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-012"
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 0,
+      "assumed_response": "pending"
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "document:POLICY-CREATE_CASE: fraud_probability 0.55 >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "document:POLICY-R1: p < 0.7 requires verification before any block/decline"
+      },
+      {
+        "action": "MONITOR_CARD",
+        "route": "auto",
+        "reason": "document:POLICY-R1: continue monitoring while awaiting customer response"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "document:POLICY-CREATE_CASE: fraud_probability 0.55 >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "document:POLICY-R1: p < 0.7 requires verification before any block/decline"
+      },
+      {
+        "action": "MONITOR_CARD",
+        "route": "auto",
+        "reason": "document:POLICY-R1: continue monitoring while awaiting customer response"
+      }
+    ],
+    "what_changed": "nothing"
+  },
+  "sar": {
+    "file": false,
+    "reason": "Fraud is not confirmed nor strongly suspected (p=0.55 < 0.7) and exposure $30.91 <= $1000 per §3a.",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0.0,
+    "activity_dates": []
+  },
+  "stop_reason": "Investigation complete pending customer verification; p=0.55 does not meet §6 stop thresholds of >=0.85 or <=0.15 with 2+ independent evidence pieces.",
+  "tool_calls": 6,
+  "tokens": 48696,
+  "latency_s": 237.11182045936584
+}

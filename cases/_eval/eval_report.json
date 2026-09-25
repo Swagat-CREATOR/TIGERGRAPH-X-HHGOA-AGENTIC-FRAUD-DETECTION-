@@ -1,0 +1,558 @@
+{
+  "model": "",
+  "n": 16,
+  "pipelines": {
+    "P1": {
+      "n": 16,
+      "pattern_accuracy": 0.0,
+      "fraud": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "accuracy": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 16,
+        "tn": 0
+      },
+      "report_accuracy": 0.938,
+      "tokens_total": 84062,
+      "tokens_per_case": 5253.9,
+      "per_case": [
+        {
+          "case_id": "CC-0001",
+          "pred_pattern": "none",
+          "true_pattern": "card_not_present_fraud",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 5186,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0002",
+          "pred_pattern": "none",
+          "true_pattern": "out_of_region_use",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 4950,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0004",
+          "pred_pattern": "none",
+          "true_pattern": "out_of_region_use",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 4881,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0005",
+          "pred_pattern": "none",
+          "true_pattern": "out_of_region_use",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 4941,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0006",
+          "pred_pattern": "none",
+          "true_pattern": "out_of_region_use",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 4849,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0007",
+          "pred_pattern": "none",
+          "true_pattern": "card_not_present_fraud",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 5030,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0008",
+          "pred_pattern": "none",
+          "true_pattern": "account_takeover",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 8775,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0011",
+          "pred_pattern": "none",
+          "true_pattern": "card_not_present_new_device",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 4975,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0012",
+          "pred_pattern": "none",
+          "true_pattern": "card_not_present_fraud",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 5145,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0013",
+          "pred_pattern": "none",
+          "true_pattern": "account_takeover",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 5103,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0014",
+          "pred_pattern": "none",
+          "true_pattern": "card_not_present_fraud",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 4894,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0016",
+          "pred_pattern": "none",
+          "true_pattern": "out_of_region_use",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 5165,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0020",
+          "pred_pattern": "none",
+          "true_pattern": "account_takeover",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 5038,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0022",
+          "pred_pattern": "none",
+          "true_pattern": "card_not_present_fraud",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 5028,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0024",
+          "pred_pattern": "none",
+          "true_pattern": "account_takeover",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": true,
+          "tokens": 5163,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0025",
+          "pred_pattern": "none",
+          "true_pattern": "account_takeover",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 4939,
+          "tool_calls": 0
+        }
+      ]
+    },
+    "P2": {
+      "n": 16,
+      "pattern_accuracy": 0.188,
+      "fraud": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "accuracy": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 16,
+        "tn": 0
+      },
+      "report_accuracy": 0.938,
+      "tokens_total": 117126,
+      "tokens_per_case": 7320.4,
+      "per_case": [
+        {
+          "case_id": "CC-0001",
+          "pred_pattern": "none",
+          "true_pattern": "card_not_present_fraud",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 7154,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0002",
+          "pred_pattern": "out_of_region_use",
+          "true_pattern": "out_of_region_use",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 7267,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0004",
+          "pred_pattern": "none",
+          "true_pattern": "out_of_region_use",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 14950,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0005",
+          "pred_pattern": "none",
+          "true_pattern": "out_of_region_use",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 7514,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0006",
+          "pred_pattern": "out_of_region_use",
+          "true_pattern": "out_of_region_use",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 7428,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0007",
+          "pred_pattern": "card_not_present_new_device",
+          "true_pattern": "card_not_present_fraud",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 5135,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0008",
+          "pred_pattern": "none",
+          "true_pattern": "account_takeover",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 3933,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0011",
+          "pred_pattern": "card_not_present_new_device",
+          "true_pattern": "card_not_present_new_device",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 4075,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0012",
+          "pred_pattern": "card_not_present_new_device",
+          "true_pattern": "card_not_present_fraud",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 7286,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0013",
+          "pred_pattern": "none",
+          "true_pattern": "account_takeover",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 7346,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0014",
+          "pred_pattern": "card_not_present_new_device",
+          "true_pattern": "card_not_present_fraud",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 7262,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0016",
+          "pred_pattern": "none",
+          "true_pattern": "out_of_region_use",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 7874,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0020",
+          "pred_pattern": "none",
+          "true_pattern": "account_takeover",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 7259,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0022",
+          "pred_pattern": "card_not_present_new_device",
+          "true_pattern": "card_not_present_fraud",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 7562,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0024",
+          "pred_pattern": "out_of_region_use",
+          "true_pattern": "account_takeover",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": true,
+          "tokens": 7705,
+          "tool_calls": 0
+        },
+        {
+          "case_id": "CC-0025",
+          "pred_pattern": "none",
+          "true_pattern": "account_takeover",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 7376,
+          "tool_calls": 0
+        }
+      ]
+    },
+    "P3": {
+      "n": 13,
+      "pattern_accuracy": 0.077,
+      "fraud": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "accuracy": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 13,
+        "tn": 0
+      },
+      "report_accuracy": 0.769,
+      "tokens_total": 721691,
+      "tokens_per_case": 55514.7,
+      "per_case": [
+        {
+          "case_id": "CC-0001",
+          "pred_pattern": "card_not_present_new_device",
+          "true_pattern": "card_not_present_fraud",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": true,
+          "true_report": false,
+          "tokens": 57913,
+          "tool_calls": 7
+        },
+        {
+          "case_id": "CC-0002",
+          "pred_pattern": "none",
+          "true_pattern": "out_of_region_use",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 57974,
+          "tool_calls": 8
+        },
+        {
+          "case_id": "CC-0004",
+          "pred_pattern": "card_testing",
+          "true_pattern": "out_of_region_use",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": true,
+          "true_report": false,
+          "tokens": 58165,
+          "tool_calls": 8
+        },
+        {
+          "case_id": "CC-0006",
+          "pred_pattern": "none",
+          "true_pattern": "out_of_region_use",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 59117,
+          "tool_calls": 7
+        },
+        {
+          "case_id": "CC-0007",
+          "pred_pattern": "card_not_present_new_device",
+          "true_pattern": "card_not_present_fraud",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 40924,
+          "tool_calls": 8
+        },
+        {
+          "case_id": "CC-0008",
+          "pred_pattern": "card_not_present_new_device",
+          "true_pattern": "account_takeover",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 52865,
+          "tool_calls": 8
+        },
+        {
+          "case_id": "CC-0011",
+          "pred_pattern": "card_not_present_new_device",
+          "true_pattern": "card_not_present_new_device",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 46609,
+          "tool_calls": 8
+        },
+        {
+          "case_id": "CC-0012",
+          "pred_pattern": "card_not_present_new_device",
+          "true_pattern": "card_not_present_fraud",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 56987,
+          "tool_calls": 8
+        },
+        {
+          "case_id": "CC-0013",
+          "pred_pattern": "none",
+          "true_pattern": "account_takeover",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 58999,
+          "tool_calls": 7
+        },
+        {
+          "case_id": "CC-0016",
+          "pred_pattern": "none",
+          "true_pattern": "out_of_region_use",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 58798,
+          "tool_calls": 7
+        },
+        {
+          "case_id": "CC-0022",
+          "pred_pattern": "card_not_present_new_device",
+          "true_pattern": "card_not_present_fraud",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 58497,
+          "tool_calls": 8
+        },
+        {
+          "case_id": "CC-0024",
+          "pred_pattern": "out_of_region_use",
+          "true_pattern": "account_takeover",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": true,
+          "tokens": 56651,
+          "tool_calls": 8
+        },
+        {
+          "case_id": "CC-0025",
+          "pred_pattern": "none",
+          "true_pattern": "account_takeover",
+          "pred_fraud": false,
+          "true_fraud": true,
+          "pred_sar": false,
+          "true_report": false,
+          "tokens": 58192,
+          "tool_calls": 7
+        }
+      ]
+    }
+  }
+}

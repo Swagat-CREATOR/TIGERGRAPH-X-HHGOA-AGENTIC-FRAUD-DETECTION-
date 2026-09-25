@@ -1,0 +1,129 @@
+{
+  "case_id": "HHG-019",
+  "case": {
+    "status": "closed_fraud",
+    "verdict": "fraud",
+    "fraud_probability": 0.9,
+    "pattern": "card_not_present_new_device",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3503878"
+    ],
+    "first_suspicious_txn_id": "3503878",
+    "connected_card_ids": [],
+    "connected_device_profiles": [
+      "Windows|other|chrome 61.0|1280x720"
+    ],
+    "exposure_usd": 99.92,
+    "evidence": [
+      {
+        "claim": "Transaction 3503878 on card C07987-K2 for $99.92 via online channel scored risk_score 0.90 with email mismatch (verizon.net vs gmail.com).",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3503878",
+          "C07987-K2",
+          "C07987"
+        ]
+      },
+      {
+        "claim": "Only one transaction in the 2-hour window around 3503878; no card-testing burst detected.",
+        "source": "graph",
+        "ref": "card_window",
+        "entity_ids": [
+          "3503878",
+          "C07987-K2"
+        ]
+      },
+      {
+        "claim": "Device profile Windows|other|chrome 61.0|1280x720 is new and associated only with card C07987-K2 and customer C07987.",
+        "source": "graph",
+        "ref": "device_neighbors",
+        "entity_ids": [
+          "3503878",
+          "C07987-K2",
+          "C07987"
+        ]
+      },
+      {
+        "claim": "Fraud probability >= 0.3 requires CREATE_CASE.",
+        "source": "document",
+        "ref": "document:POLICY-CREATE_CASE",
+        "entity_ids": []
+      },
+      {
+        "claim": "p >= 0.7 permits BLOCK_CARD or DECLINE_TRANSACTION without prior VERIFY_WITH_CUSTOMER or STEP_UP_AUTH per R1.",
+        "source": "document",
+        "ref": "document:POLICY-R1",
+        "entity_ids": []
+      },
+      {
+        "claim": "Investigation stops when p >= 0.85 with >= 2 independent pieces of evidence per §6.",
+        "source": "document",
+        "ref": "document:POLICY-§6",
+        "entity_ids": []
+      },
+      {
+        "claim": "BLOCK_ALL_CARDS requires 2+ compromised cards or confirmed credential compromise per R10.",
+        "source": "document",
+        "ref": "document:POLICY-R10",
+        "entity_ids": []
+      },
+      {
+        "claim": "SAR filing requires exposure > $1000, shared device/region connection, or coordinated pattern per §3a.",
+        "source": "document",
+        "ref": "document:POLICY-§3a",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [],
+    "summary": "Transaction 3503878 flagged with model risk score 0.90. Evidence shows a new device and email domain mismatch indicating card-not-present fraud from an unfamiliar environment. Investigation stopped per §6 as p=0.90 >= 0.85 with two independent signals. Case created and transaction declined per R1.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-019"
+  },
+  "evidence_requests": [],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "document:POLICY-CREATE_CASE: fraud_probability 0.90 >= 0.3"
+      },
+      {
+        "action": "DECLINE_TRANSACTION",
+        "route": "L1",
+        "reason": "document:POLICY-R1: p=0.90 >= 0.7, strong signal permits decline without prior verification"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "document:POLICY-CREATE_CASE: fraud_probability 0.90 >= 0.3"
+      },
+      {
+        "action": "DECLINE_TRANSACTION",
+        "route": "L1",
+        "reason": "document:POLICY-R1: p=0.90 >= 0.7, strong signal permits decline without prior verification"
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "document:POLICY-R1: p=0.90 >= 0.7, block flagged card to prevent further fraud"
+      }
+    ],
+    "what_changed": "Added BLOCK_CARD to final actions after case creation and initial decline."
+  },
+  "sar": {
+    "file": false,
+    "reason": "Exposure $99.92 not > $1000, no shared-device/multi-customer ring, pattern not coordinated per §3a.",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0.0,
+    "activity_dates": []
+  },
+  "stop_reason": "§6 stop: fraud_probability 0.90 >= 0.85 with 2 independent pieces of evidence (risk model score + new device/email mismatch).",
+  "tool_calls": 3,
+  "tokens": 20468,
+  "latency_s": 151.3678424358368
+}

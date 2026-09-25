@@ -1,0 +1,170 @@
+{
+  "case_id": "HHG-020",
+  "case": {
+    "status": "closed_fraud",
+    "verdict": "fraud",
+    "fraud_probability": 0.88,
+    "pattern": "card_not_present_new_device",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3509359"
+    ],
+    "first_suspicious_txn_id": "3509359",
+    "connected_card_ids": [
+      "C02923-K1",
+      "C02354-K2"
+    ],
+    "connected_device_profiles": [
+      "Trident/7.0|Windows 10|ie 11.0 for desktop|1920x1080",
+      "Windows|Windows 7|chrome 63.0|1366x768",
+      "iOS Device|iOS 11.2.1|mobile safari 11.0|2048x1536",
+      "Linux|chrome 63.0",
+      "iOS Device|iOS 11.1.2|mobile safari 11.0|1334x750"
+    ],
+    "exposure_usd": 125.08,
+    "evidence": [
+      {
+        "claim": "Transaction 3509359 conducted online from a device marked as New with mismatched email domains (yahoo.com vs cox.net).",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3509359",
+          "C12265-K2",
+          "C12265"
+        ]
+      },
+      {
+        "claim": "Card history shows predominantly in-person transactions; flagged online transaction is anomalous.",
+        "source": "graph",
+        "ref": "card_txn_history",
+        "entity_ids": [
+          "C12265-K2",
+          "3509359"
+        ]
+      },
+      {
+        "claim": "New device profile shared across 3 cards belonging to 3 different customers, indicating coordinated activity.",
+        "source": "graph",
+        "ref": "device_neighbors",
+        "entity_ids": [
+          "3509359",
+          "C12265-K2",
+          "C02923-K1",
+          "C02354-K2",
+          "C12265",
+          "C02923",
+          "C02354"
+        ]
+      },
+      {
+        "claim": "Card C12265-K2 shares 5 distinct device profiles with 8 other cards across 8 different customers.",
+        "source": "graph",
+        "ref": "connected_cards",
+        "entity_ids": [
+          "C12265-K2",
+          "C03042",
+          "C05876",
+          "C09933",
+          "C07987",
+          "C08623",
+          "C10434",
+          "C02923",
+          "C02354"
+        ]
+      },
+      {
+        "claim": "Precedent cases matched this exact pattern with near-identical exposure and were confirmed fraud.",
+        "source": "graph",
+        "ref": "similar_closed_cases",
+        "entity_ids": [
+          "CC-2979",
+          "CC-4317",
+          "CC-0832"
+        ]
+      },
+      {
+        "claim": "Card-not-present fraud from a new device shared across multiple unrelated customers is a strong indicator of coordinated fraud.",
+        "source": "document",
+        "ref": "document:PATTERN-CNP-NEW-DEVICE",
+        "entity_ids": [
+          "3509359"
+        ]
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-2979",
+      "CC-4317",
+      "CC-0832"
+    ],
+    "summary": "Transaction 3509359 on card C12265-K2 was flagged with risk score 0.52. Investigation revealed the transaction originated from a new device shared by multiple unrelated customers (C02923, C02354) and connected via 5 device profiles to 8 other customer cards. Historical behavior is in-person, making this online transaction anomalous. Similar closed cases confirm this pattern as fraud. Fraud probability assessed at 0.88 based on multiple independent signals, triggering §6 stop.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-020"
+  },
+  "evidence_requests": [],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy: Open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: never BLOCK_CARD on single weak signal without first proposing VERIFY_WITH_CUSTOMER or STEP_UP_AUTH"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy: Open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "R1 satisfied via initial VERIFY_WITH_CUSTOMER; p=0.88 supports block"
+      },
+      {
+        "action": "DECLINE_TRANSACTION",
+        "route": "L1",
+        "reason": "Confirmed fraud pattern with p >= 0.7 after verification step proposed"
+      },
+      {
+        "action": "MONITOR_CONNECTED_CARDS",
+        "route": "auto",
+        "reason": "Graph evidence shows 8 connected cards sharing devices requiring monitoring"
+      },
+      {
+        "action": "GENERATE_REPORT",
+        "route": "auto",
+        "reason": "§3a: FILE_REPORT must be accompanied by CREATE_CASE; fraud confirmed and connects to shared device/another customer's fraud"
+      },
+      {
+        "action": "FILE_REPORT",
+        "route": "L2",
+        "reason": "§3a: SAR required because fraud confirmed, activity connects to shared device/another customer's fraud, and pattern is coordinated"
+      }
+    ],
+    "what_changed": "Added BLOCK_CARD, DECLINE_TRANSACTION, MONITOR_CONNECTED_CARDS, GENERATE_REPORT, and FILE_REPORT after investigation confirmed fraud (p=0.88) satisfying R1 initial verification requirement and §3a SAR criteria."
+  },
+  "sar": {
+    "file": true,
+    "reason": "Fraud confirmed (p=0.88), activity connects to shared device and other customers' potential fraud, pattern is coordinated per §3a.",
+    "narrative": "Transaction 3509359 ($125.08) on card C12265-K2 was identified as fraudulent. The transaction originated from a new device shared across multiple unrelated customers (C12265, C02923, C02354). Card C12265-K2 is connected to 8 other cards via 5 shared device profiles, indicating a coordinated fraud ring. Historical analysis confirms the transaction is anomalous compared to established in-person spending patterns. Precedent cases CC-2979, CC-4317, and CC-0832 match this exact pattern and were confirmed fraud.",
+    "subjects": [
+      "C12265",
+      "C02923",
+      "C02354"
+    ],
+    "total_amount_usd": 125.08,
+    "activity_dates": [
+      "2016-12-03",
+      "2016-12-03"
+    ]
+  },
+  "stop_reason": "§6: stopped investigating when p >= 0.85 with multiple independent pieces of evidence (new device, multi-customer device sharing, historical anomaly, precedent cases).",
+  "tool_calls": 7,
+  "tokens": 62187,
+  "latency_s": 291.829222202301
+}

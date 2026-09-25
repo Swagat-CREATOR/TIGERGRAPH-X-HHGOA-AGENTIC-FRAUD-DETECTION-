@@ -1,0 +1,59 @@
+{
+  "case_id": "HHG-007",
+  "model_version": "qwen/qwen3.8-max:free",
+  "snapshot_id": "",
+  "evidence_value": [],
+  "action_projections": [],
+  "tool_trace": [
+    {
+      "step": 0,
+      "tool": "transaction_features",
+      "args": {
+        "txn_id": "3514948"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3514948\", \"found\": true, \"amount\": 111.92, \"product_cd\": \"W\", \"channel\": \"in_person\", \"risk_score\": 0.87, \"region\": \"264.0\", \"addr2\": \"87.0\", \"p_email\": \"gmail.com\", \"r_email\": \"\", \"ts\": \"2016-12-05 00:46:14\", \"customer_id\": \"C09933\", \"device\": {\"type\": \"\", \"info\": \"\", \"os\": \"\", \"browser",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 1,
+      "tool": "card_txn_history",
+      "args": {
+        "card_id": "C09933-K2"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C09933-K2\", \"n\": 40, \"transactions\": [{\"txn_id\": \"3590736\", \"amount\": 47.96, \"ts\": \"2016-12-31 23:57:27\", \"channel\": \"in_person\", \"product_cd\": \"W\", \"risk_score\": 0.17, \"region\": \"264.0\", \"p_email\": \"gmail.com\"}, {\"txn_id\": \"3590655\", \"amount\": 116.92, \"ts\": \"2016-12-31 23:28:44\", \"chan",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 2,
+      "tool": "card_window",
+      "args": {
+        "txn_id": "3514948"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3514948\", \"card_id\": \"C09933-K2\", \"hours\": 48.0, \"n\": 50, \"window\": [{\"txn_id\": \"3509151\", \"amount\": 57.94, \"ts\": \"2016-12-03 02:57:52\", \"channel\": \"in_person\", \"product_cd\": \"W\", \"risk_score\": 0.07, \"region\": \"264.0\"}, {\"txn_id\": \"3509355\", \"amount\": 221.93, \"ts\": \"2016-12-03 05:54:55\",",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 3,
+      "tool": "similar_closed_cases",
+      "args": {
+        "pattern": "none",
+        "exposure_usd": 111.92,
+        "top_k": 3
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"pattern\": \"none\", \"matched\": 400, \"returned\": 3, \"cases\": [{\"case_id\": \"CC-1842\", \"outcome\": \"cleared\", \"pattern\": \"none\", \"exposure_usd\": 0, \"report_filed\": \"No\", \"analyst_notes\": \"Case CC-1842: model scored a $125.05 transaction at 0.91. Cardholder confirmed travel to the billing region in quest",
+      "tokens": 0,
+      "latency_s": 0.0
+    }
+  ]
+}

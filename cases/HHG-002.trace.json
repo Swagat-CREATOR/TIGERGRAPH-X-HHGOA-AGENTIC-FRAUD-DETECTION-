@@ -1,0 +1,93 @@
+{
+  "case_id": "HHG-002",
+  "model_version": "qwen/qwen3.8-max:free",
+  "snapshot_id": "",
+  "evidence_value": [],
+  "action_projections": [],
+  "tool_trace": [
+    {
+      "step": 0,
+      "tool": "transaction_features",
+      "args": {
+        "txn_id": "3478782"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3478782\", \"found\": true, \"amount\": 292.36, \"product_cd\": \"C\", \"channel\": \"online\", \"risk_score\": 0.79, \"region\": \"\", \"addr2\": \"\", \"p_email\": \"hotmail.com\", \"r_email\": \"hotmail.com\", \"ts\": \"2016-11-22 17:27:07\", \"customer_id\": \"C11891\", \"device\": {\"type\": \"\", \"info\": \"\", \"os\": \"\", \"browse",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 1,
+      "tool": "card_window",
+      "args": {
+        "txn_id": "3478782"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3478782\", \"card_id\": \"C11891-K1\", \"hours\": 48.0, \"n\": 1, \"window\": [{\"txn_id\": \"3478782\", \"amount\": 292.36, \"ts\": \"2016-11-22 17:27:07\", \"channel\": \"online\", \"product_cd\": \"C\", \"risk_score\": 0.79, \"region\": \"\"}]}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 2,
+      "tool": "card_txn_history",
+      "args": {
+        "card_id": "C11891-K1"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C11891-K1\", \"n\": 40, \"transactions\": [{\"txn_id\": \"3545398\", \"amount\": 26.22, \"ts\": \"2016-12-15 15:37:17\", \"channel\": \"online\", \"product_cd\": \"C\", \"risk_score\": 0.12, \"region\": \"\", \"p_email\": \"gmail.com\"}, {\"txn_id\": \"3545367\", \"amount\": 26.27, \"ts\": \"2016-12-15 15:29:45\", \"channel\": \"on",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 3,
+      "tool": "device_neighbors",
+      "args": {
+        "txn_id": "3478782"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3478782\", \"device_id\": null, \"device_info\": null, \"is_new\": null, \"n_cards\": 0, \"cards\": []}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 4,
+      "tool": "connected_cards",
+      "args": {
+        "card_id": "C11891-K1"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C11891-K1\", \"shared_devices\": [\"SM-G531H Build/LMY48B||chrome 63.0 for android\", \"Trident/7.0||ie 11.0 for desktop\", \"Windows||chrome 62.0\", \"Trident/7.0||ie 11.0 for tablet\", \"MotoE2(4G-LTE||chrome generic\", \"Windows||chrome 64.0\", \"chrome\", \"chrome 66.0\", \"Windows||chrome 66.0\", \"Wind",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 5,
+      "tool": "similar_closed_cases",
+      "args": {
+        "pattern": "card_not_present_fraud"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"pattern\": \"card_not_present_fraud\", \"matched\": 400, \"returned\": 5, \"cases\": [{\"case_id\": \"CC-5104\", \"outcome\": \"confirmed_fraud\", \"pattern\": \"card_not_present_fraud\", \"exposure_usd\": 1.36, \"report_filed\": \"No\", \"analyst_notes\": \"Case CC-5104: cardholder C01521 reported unrecognized activity on car",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 6,
+      "tool": "knowledge_search",
+      "args": {
+        "query": "card not present fraud shared device ring policy SAR filing threshold"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"hits\": [{\"id\": \"PATTERN-CNP-NEW-DEVICE\", \"title\": \"Card-not-present fraud from a new device\", \"snippet\": \"Same as card-not-present fraud, with the identity record marking the device as New for this account, sometimes behind a proxy. Stronger than plain card-not-present fraud, still not proof: peop",
+      "tokens": 0,
+      "latency_s": 0.0
+    }
+  ]
+}

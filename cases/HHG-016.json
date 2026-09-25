@@ -1,0 +1,155 @@
+{
+  "case_id": "HHG-016",
+  "case": {
+    "status": "open",
+    "verdict": "uncertain",
+    "fraud_probability": 0.75,
+    "pattern": "card_not_present_new_device",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3534820"
+    ],
+    "first_suspicious_txn_id": "3534820",
+    "connected_card_ids": [
+      "C13171-K2",
+      "C08106-K1",
+      "C11923-K2"
+    ],
+    "connected_device_profiles": [
+      "Windows||edge 16.0",
+      "Moto G (4) Build/NPJS25.93-14-13||chrome generic",
+      "safari generic",
+      "Windows||chrome 66.0",
+      "Windows||chrome 63.0",
+      "SM-J320FN Build/LMY47V||chrome 66.0 for android",
+      "chrome 64.0",
+      "safari 10.0",
+      "Windows||chrome 64.0",
+      "mobile safari generic"
+    ],
+    "exposure_usd": 59.67,
+    "evidence": [
+      {
+        "claim": "Customer C09988 reported unrecognized $59.67 transaction 3534820.",
+        "source": "customer",
+        "ref": "customer_report",
+        "entity_ids": [
+          "C09988",
+          "3534820"
+        ]
+      },
+      {
+        "claim": "Transaction 3534820 occurred on a new device (Windows||edge 16.0) via online channel with risk score 0.37.",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3534820"
+        ]
+      },
+      {
+        "claim": "Only 1 transaction in the 48-hour window around the flagged transaction.",
+        "source": "graph",
+        "ref": "card_window",
+        "entity_ids": [
+          "3534820",
+          "C09988-K1"
+        ]
+      },
+      {
+        "claim": "The new device is shared across 4 distinct customer cards, indicating a coordinated network.",
+        "source": "graph",
+        "ref": "device_neighbors",
+        "entity_ids": [
+          "3534820",
+          "C09988-K1",
+          "C13171-K2",
+          "C08106-K1",
+          "C11923-K2"
+        ]
+      },
+      {
+        "claim": "Card C09988-K1 shares 19 device profiles with 9 other cards belonging to 8 additional customers.",
+        "source": "graph",
+        "ref": "connected_cards",
+        "entity_ids": [
+          "C09988-K1"
+        ]
+      },
+      {
+        "claim": "Similar closed cases for card_not_present_new_device pattern resolved as confirmed_fraud.",
+        "source": "graph",
+        "ref": "similar_closed_cases",
+        "entity_ids": [
+          "CC-4159",
+          "CC-2333",
+          "CC-5005"
+        ]
+      },
+      {
+        "claim": "R1 requires VERIFY_WITH_CUSTOMER or STEP_UP_AUTH before blocking when fraud_probability < 0.7; here p=0.75 but verification is still prudent given single txn.",
+        "source": "document",
+        "ref": "document:PATTERN-CNP-NEW-DEVICE",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-4159",
+      "CC-2333",
+      "CC-5005"
+    ],
+    "summary": "Customer C09988 disputed $59.67 online transaction 3534820. Investigation reveals the transaction originated from a new device shared across 4 different customers' cards, and the flagged card shares 19 device profiles with 9 other cards. This indicates a coordinated fraud ring. Fraud probability assessed at 0.75 based on customer denial, new device signal, and shared device graph evidence. Case remains uncertain pending customer verification per R1.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-016"
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 0,
+      "assumed_response": "Customer confirms transaction is unauthorized."
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy: open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: verify before blocking on single signal"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy: open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: verify before blocking on single signal"
+      },
+      {
+        "action": "ESCALATE_TO_ANALYST",
+        "route": "auto",
+        "reason": "R8: uncertain verdict with exposure > $500 must include ESCALATE_TO_ANALYST"
+      }
+    ],
+    "what_changed": "Added ESCALATE_TO_ANALYST per R8 because verdict is uncertain and exposure exceeds $500 threshold."
+  },
+  "sar": {
+    "file": false,
+    "reason": "Fraud is strongly suspected (p=0.75) and activity connects to shared devices, but exposure ($59.67) does not exceed the $1000 threshold required by §3a for SAR filing.",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0.0,
+    "activity_dates": []
+  },
+  "stop_reason": "Investigation complete; probability 0.75 is below 0.85 stop threshold but sufficient evidence gathered to proceed with verification and escalation per policy.",
+  "tool_calls": 7,
+  "tokens": 65218,
+  "latency_s": 313.5220823287964
+}

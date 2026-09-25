@@ -1,0 +1,96 @@
+{
+  "case_id": "HHG-006",
+  "model_version": "qwen/qwen3.8-max:free",
+  "snapshot_id": "",
+  "evidence_value": [],
+  "action_projections": [],
+  "tool_trace": [
+    {
+      "step": 0,
+      "tool": "transaction_features",
+      "args": {
+        "txn_id": "3476682"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3476682\", \"found\": true, \"amount\": 482.12, \"product_cd\": \"C\", \"channel\": \"online\", \"risk_score\": 0.25, \"region\": \"264.0\", \"addr2\": \"87.0\", \"p_email\": \"gmail.com\", \"r_email\": \"\", \"ts\": \"2016-11-21 20:30:00\", \"customer_id\": \"C07297\", \"device\": {\"type\": \"desktop\", \"info\": \"Trident/7.0\", \"os",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 1,
+      "tool": "card_txn_history",
+      "args": {
+        "card_id": "C07297-K1"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C07297-K1\", \"n\": 40, \"transactions\": [{\"txn_id\": \"3588834\", \"amount\": 31.03, \"ts\": \"2016-12-31 13:14:13\", \"channel\": \"in_person\", \"product_cd\": \"W\", \"risk_score\": 0.45, \"region\": \"492.0\", \"p_email\": \"gmail.com\"}, {\"txn_id\": \"3586692\", \"amount\": 92.98, \"ts\": \"2016-12-30 16:38:46\", \"chann",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 2,
+      "tool": "card_window",
+      "args": {
+        "txn_id": "3476682"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3476682\", \"card_id\": \"C07297-K1\", \"hours\": 48.0, \"n\": 8, \"window\": [{\"txn_id\": \"3473012\", \"amount\": 262.04, \"ts\": \"2016-11-20 14:22:12\", \"channel\": \"in_person\", \"product_cd\": \"W\", \"risk_score\": 0.13, \"region\": \"191.0\"}, {\"txn_id\": \"3474057\", \"amount\": 226.02, \"ts\": \"2016-11-20 20:26:28\",",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 3,
+      "tool": "device_neighbors",
+      "args": {
+        "txn_id": "3476682"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3476682\", \"device_id\": \"Trident/7.0|Windows 7|ie 11.0 for desktop|1920x1080\", \"device_info\": \"Trident/7.0\", \"is_new\": \"New\", \"n_cards\": 4, \"cards\": [{\"card_id\": \"C07297-K1\", \"customer_id\": \"C07297\"}, {\"card_id\": \"C09933-K2\", \"customer_id\": \"C09933\"}, {\"card_id\": \"C07987-K2\", \"customer_id",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 4,
+      "tool": "connected_cards",
+      "args": {
+        "card_id": "C07297-K1"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C07297-K1\", \"shared_devices\": [\"iOS Device|iOS 11.2.1|mobile safari 11.0|2208x1242\", \"Trident/7.0|Windows 7|ie 11.0 for desktop|1920x1080\"], \"n_connected\": 6, \"connected_cards\": [{\"card_id\": \"C03042-K1\", \"customer_id\": \"C03042\"}, {\"card_id\": \"C05876-K2\", \"customer_id\": \"C05876\"}, {\"card",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 5,
+      "tool": "similar_closed_cases",
+      "args": {
+        "pattern": "card_not_present_new_device",
+        "exposure_usd": 482.12,
+        "top_k": 3
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"pattern\": \"card_not_present_new_device\", \"matched\": 400, \"returned\": 3, \"cases\": [{\"case_id\": \"CC-4717\", \"outcome\": \"confirmed_fraud\", \"pattern\": \"card_not_present_new_device\", \"exposure_usd\": 485.25, \"report_filed\": \"No\", \"analyst_notes\": \"Case CC-4717: cardholder C11444 reported unrecognized act",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 6,
+      "tool": "knowledge_search",
+      "args": {
+        "query": "card_not_present_new_device fraud policy SAR filing requirements shared device",
+        "top_k": 3
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"hits\": [{\"id\": \"PATTERN-CNP-NEW-DEVICE\", \"title\": \"Card-not-present fraud from a new device\", \"snippet\": \"Same as card-not-present fraud, with the identity record marking the device as New for this account, sometimes behind a proxy. Stronger than plain card-not-present fraud, still not proof: peop",
+      "tokens": 0,
+      "latency_s": 0.0
+    }
+  ]
+}

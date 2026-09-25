@@ -1,0 +1,85 @@
+{
+  "case_id": "HHG-009",
+  "model_version": "qwen/qwen3.8-max:free",
+  "snapshot_id": "",
+  "evidence_value": [],
+  "action_projections": [],
+  "tool_trace": [
+    {
+      "step": 0,
+      "tool": "transaction_features",
+      "args": {
+        "txn_id": "3581141"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3581141\", \"found\": true, \"amount\": 30.02, \"product_cd\": \"S\", \"channel\": \"online\", \"risk_score\": 0.28, \"region\": \"203.0\", \"addr2\": \"87.0\", \"p_email\": \"\", \"r_email\": \"gmail.com\", \"ts\": \"2016-12-28 12:10:53\", \"customer_id\": \"C08299\", \"device\": {\"type\": \"desktop\", \"info\": \"\", \"os\": \"\", \"brow",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 1,
+      "tool": "card_txn_history",
+      "args": {
+        "card_id": "C08299-K1",
+        "limit": 10
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C08299-K1\", \"n\": 10, \"transactions\": [{\"txn_id\": \"3588950\", \"amount\": 50.09, \"ts\": \"2016-12-31 14:01:58\", \"channel\": \"online\", \"product_cd\": \"S\", \"risk_score\": 0.03, \"region\": \"204.0\", \"p_email\": \"\"}, {\"txn_id\": \"3588919\", \"amount\": 50.09, \"ts\": \"2016-12-31 13:52:59\", \"channel\": \"online",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 2,
+      "tool": "card_window",
+      "args": {
+        "txn_id": "3581141",
+        "hours": 24
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3581141\", \"card_id\": \"C08299-K1\", \"hours\": 24, \"n\": 1, \"window\": [{\"txn_id\": \"3581141\", \"amount\": 30.02, \"ts\": \"2016-12-28 12:10:53\", \"channel\": \"online\", \"product_cd\": \"S\", \"risk_score\": 0.28, \"region\": \"203.0\"}]}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 3,
+      "tool": "device_neighbors",
+      "args": {
+        "txn_id": "3581141"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3581141\", \"device_id\": null, \"device_info\": null, \"is_new\": null, \"n_cards\": 0, \"cards\": []}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 4,
+      "tool": "connected_cards",
+      "args": {
+        "card_id": "C08299-K1"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C08299-K1\", \"shared_devices\": [\"Windows|Windows 7|firefox 58.0|1366x768\", \"Windows|Windows 10|chrome 63.0|1920x1080\", \"Windows|Windows 10|edge 16.0|1366x767\", \"Windows|Windows 7|firefox 59.0|1366x768\", \"Windows|Windows 10|firefox 60.0|1600x900\", \"Windows|Windows 10|chrome generic|1680x1",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 5,
+      "tool": "similar_closed_cases",
+      "args": {
+        "pattern": "card_not_present_fraud",
+        "exposure_usd": 30.02,
+        "top_k": 3
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"pattern\": \"card_not_present_fraud\", \"matched\": 400, \"returned\": 3, \"cases\": [{\"case_id\": \"CC-2728\", \"outcome\": \"confirmed_fraud\", \"pattern\": \"card_not_present_fraud\", \"exposure_usd\": 30.01, \"report_filed\": \"No\", \"analyst_notes\": \"Case CC-2728: cardholder C06660 reported unrecognized activity on ca",
+      "tokens": 0,
+      "latency_s": 0.0
+    }
+  ]
+}

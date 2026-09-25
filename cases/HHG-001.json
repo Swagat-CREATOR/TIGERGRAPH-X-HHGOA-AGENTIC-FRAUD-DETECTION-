@@ -1,0 +1,149 @@
+{
+  "case_id": "HHG-001",
+  "case": {
+    "status": "open",
+    "verdict": "uncertain",
+    "fraud_probability": 0.85,
+    "pattern": "out_of_region_use",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3514030"
+    ],
+    "first_suspicious_txn_id": "3514030",
+    "connected_card_ids": [
+      "C09933-K2",
+      "C02354-K2"
+    ],
+    "connected_device_profiles": [
+      "iOS Device|iOS 11.1.0|mobile safari 11.0|2208x1242",
+      "iOS Device|iOS 11.2.6|mobile safari generic|1334x750"
+    ],
+    "exposure_usd": 77.07,
+    "evidence": [
+      {
+        "claim": "Transaction 3514030 is a $77.07 in-person purchase in region 444.0 with model risk_score 0.61.",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3514030",
+          "C12382-K1",
+          "C12382"
+        ]
+      },
+      {
+        "claim": "15 transactions occurred within 48 hours across physically impossible distinct regions (433.0, 204.0, 191.0, 485.0, 203.0, 444.0), indicating cloned-card or coordinated fraud.",
+        "source": "graph",
+        "ref": "card_window",
+        "entity_ids": [
+          "3514030",
+          "C12382-K1"
+        ]
+      },
+      {
+        "claim": "Card C12382-K1 shares two iOS device profiles with cards C09933-K2 and C02354-K2 belonging to different customers C09933 and C02354.",
+        "source": "graph",
+        "ref": "connected_cards",
+        "entity_ids": [
+          "C12382-K1",
+          "C09933-K2",
+          "C02354-K2",
+          "C09933",
+          "C02354"
+        ]
+      },
+      {
+        "claim": "Similar closed cases for out_of_region_use consistently resulted in confirmed_fraud where card-present use occurred in regions the cardholder had no history in.",
+        "source": "graph",
+        "ref": "similar_closed_cases",
+        "entity_ids": [
+          "CC-0044"
+        ]
+      },
+      {
+        "claim": "Fraud Policy v1.0 requires opening a case when fraud_probability >= 0.3 and escalating uncertain verdicts with exposure > $500.",
+        "source": "document",
+        "ref": "document:POLICY-OVERVIEW",
+        "entity_ids": [
+          "HHG-001"
+        ]
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-0044"
+    ],
+    "summary": "Transaction 3514030 scored 0.61 but exhibits physically impossible geographic velocity across multiple regions within 48 hours via in-person channel. Card C12382-K1 shares device profiles with two other customers' cards, strongly suggesting a coordinated fraud ring using cloned cards. Verdict is uncertain pending customer verification; probability set to 0.85 triggering §6 stop.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-001"
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 0,
+      "assumed_response": "Customer unreachable pending outreach"
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy: open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: never BLOCK_CARD on single weak signal without first proposing VERIFY_WITH_CUSTOMER or STEP_UP_AUTH"
+      },
+      {
+        "action": "STEP_UP_AUTH",
+        "route": "auto",
+        "reason": "R1: step-up auth required before blocking given initial risk_score 0.61 < 0.7"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy: open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: verify before blocking"
+      },
+      {
+        "action": "STEP_UP_AUTH",
+        "route": "auto",
+        "reason": "R1: step-up before blocking"
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "Post-verification block justified as p=0.85 >= 0.7 after R1 conditions met"
+      },
+      {
+        "action": "MONITOR_CONNECTED_CARDS",
+        "route": "auto",
+        "reason": "Shared devices link C09933-K2 and C02354-K2 to flagged card"
+      },
+      {
+        "action": "ESCALATE_TO_ANALYST",
+        "route": "auto",
+        "reason": "R8: uncertain verdict with exposure > $500 must include ESCALATE_TO_ANALYST; also p>=0.85 warrants analyst review for SAR filing"
+      }
+    ],
+    "what_changed": "Added BLOCK_CARD, MONITOR_CONNECTED_CARDS, and ESCALATE_TO_ANALYST after investigation confirmed shared-device fraud-ring indicators and raised effective probability to 0.85."
+  },
+  "sar": {
+    "file": false,
+    "reason": "SAR not filed yet because verdict remains uncertain pending customer verification. Escalated to analyst who will file if fraud is confirmed per §3a (p>=0.7, activity connects to shared device/another customer).",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0.0,
+    "activity_dates": []
+  },
+  "stop_reason": "§6: stopped investigating when p >= 0.85 with 2+ independent pieces of evidence (geographic velocity and shared device graph).",
+  "tool_calls": 7,
+  "tokens": 55441,
+  "latency_s": 268.1619029045105
+}

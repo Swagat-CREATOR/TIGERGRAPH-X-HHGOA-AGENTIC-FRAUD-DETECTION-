@@ -1,0 +1,85 @@
+{
+  "case_id": "HHG-015",
+  "model_version": "qwen/qwen3.8-max:free",
+  "snapshot_id": "",
+  "evidence_value": [],
+  "action_projections": [],
+  "tool_trace": [
+    {
+      "step": 0,
+      "tool": "transaction_features",
+      "args": {
+        "txn_id": "3464869"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3464869\", \"found\": true, \"amount\": 599.94, \"product_cd\": \"R\", \"channel\": \"online\", \"risk_score\": 0.77, \"region\": \"327.0\", \"addr2\": \"87.0\", \"p_email\": \"anonymous.com\", \"r_email\": \"anonymous.com\", \"ts\": \"2016-11-17 14:03:36\", \"customer_id\": \"C03042\", \"device\": {\"type\": \"desktop\", \"info\": \"",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 1,
+      "tool": "card_window",
+      "args": {
+        "txn_id": "3464869",
+        "hours": 2
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3464869\", \"card_id\": \"C03042-K1\", \"hours\": 2, \"n\": 1, \"window\": [{\"txn_id\": \"3464869\", \"amount\": 599.94, \"ts\": \"2016-11-17 14:03:36\", \"channel\": \"online\", \"product_cd\": \"R\", \"risk_score\": 0.77, \"region\": \"327.0\"}]}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 2,
+      "tool": "card_txn_history",
+      "args": {
+        "card_id": "C03042-K1",
+        "limit": 10
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C03042-K1\", \"n\": 10, \"transactions\": [{\"txn_id\": \"3579649\", \"amount\": 214.03, \"ts\": \"2016-12-27 19:16:03\", \"channel\": \"in_person\", \"product_cd\": \"W\", \"risk_score\": 0.22, \"region\": \"299.0\", \"p_email\": \"anonymous.com\"}, {\"txn_id\": \"3579474\", \"amount\": 50.09, \"ts\": \"2016-12-27 18:10:11\", \"",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 3,
+      "tool": "device_neighbors",
+      "args": {
+        "txn_id": "3464869"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3464869\", \"device_id\": \"Trident/7.0|Windows 8.1|ie 11.0 for desktop|1680x1050\", \"device_info\": \"Trident/7.0\", \"is_new\": \"New\", \"n_cards\": 1, \"cards\": [{\"card_id\": \"C03042-K1\", \"customer_id\": \"C03042\"}]}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 4,
+      "tool": "connected_cards",
+      "args": {
+        "card_id": "C03042-K1"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C03042-K1\", \"shared_devices\": [\"Windows|Windows 10|chrome 64.0|1600x900\", \"Windows|Windows 10|chrome 63.0|1920x1080\", \"Windows|Windows 7|chrome 65.0|1280x1024\", \"Windows|Windows 10|chrome 62.0|1600x900\", \"iOS Device|iOS 11.3.0|mobile safari generic|1334x750\", \"Windows|Windows 10|edge 15",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 5,
+      "tool": "similar_closed_cases",
+      "args": {
+        "pattern": "card_not_present_new_device",
+        "exposure_usd": 599.94,
+        "top_k": 3
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"pattern\": \"card_not_present_new_device\", \"matched\": 400, \"returned\": 3, \"cases\": [{\"case_id\": \"CC-2661\", \"outcome\": \"confirmed_fraud\", \"pattern\": \"card_not_present_new_device\", \"exposure_usd\": 599.88, \"report_filed\": \"No\", \"analyst_notes\": \"Case CC-2661: cardholder C08918 reported unrecognized act",
+      "tokens": 0,
+      "latency_s": 0.0
+    }
+  ]
+}

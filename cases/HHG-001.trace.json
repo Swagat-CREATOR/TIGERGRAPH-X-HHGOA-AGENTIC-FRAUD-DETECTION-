@@ -1,0 +1,93 @@
+{
+  "case_id": "HHG-001",
+  "model_version": "qwen/qwen3.8-max:free",
+  "snapshot_id": "",
+  "evidence_value": [],
+  "action_projections": [],
+  "tool_trace": [
+    {
+      "step": 0,
+      "tool": "transaction_features",
+      "args": {
+        "txn_id": "3514030"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3514030\", \"found\": true, \"amount\": 77.07, \"product_cd\": \"W\", \"channel\": \"in_person\", \"risk_score\": 0.61, \"region\": \"444.0\", \"addr2\": \"87.0\", \"p_email\": \"\", \"r_email\": \"\", \"ts\": \"2016-12-04 19:55:28\", \"customer_id\": \"C12382\", \"device\": {\"type\": \"\", \"info\": \"\", \"os\": \"\", \"browser\": \"\", \"sc",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 1,
+      "tool": "card_txn_history",
+      "args": {
+        "card_id": "C12382-K1"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C12382-K1\", \"n\": 40, \"transactions\": [{\"txn_id\": \"3589921\", \"amount\": 76.97, \"ts\": \"2016-12-31 19:14:37\", \"channel\": \"in_person\", \"product_cd\": \"W\", \"risk_score\": 0.02, \"region\": \"444.0\", \"p_email\": \"\"}, {\"txn_id\": \"3587270\", \"amount\": 15.02, \"ts\": \"2016-12-30 19:52:47\", \"channel\": \"in_",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 2,
+      "tool": "card_window",
+      "args": {
+        "txn_id": "3514030"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3514030\", \"card_id\": \"C12382-K1\", \"hours\": 48.0, \"n\": 15, \"window\": [{\"txn_id\": \"3510115\", \"amount\": 23.99, \"ts\": \"2016-12-03 15:53:45\", \"channel\": \"in_person\", \"product_cd\": \"W\", \"risk_score\": 0.04, \"region\": \"433.0\"}, {\"txn_id\": \"3510225\", \"amount\": 35.92, \"ts\": \"2016-12-03 16:32:25\", ",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 3,
+      "tool": "connected_cards",
+      "args": {
+        "card_id": "C12382-K1"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C12382-K1\", \"shared_devices\": [\"iOS Device|iOS 11.1.0|mobile safari 11.0|2208x1242\", \"iOS Device|iOS 11.2.6|mobile safari generic|1334x750\"], \"n_connected\": 2, \"connected_cards\": [{\"card_id\": \"C09933-K2\", \"customer_id\": \"C09933\"}, {\"card_id\": \"C02354-K2\", \"customer_id\": \"C02354\"}]}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 4,
+      "tool": "device_neighbors",
+      "args": {
+        "txn_id": "3514030"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3514030\", \"device_id\": null, \"device_info\": null, \"is_new\": null, \"n_cards\": 0, \"cards\": []}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 5,
+      "tool": "similar_closed_cases",
+      "args": {
+        "pattern": "out_of_region_use"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"pattern\": \"out_of_region_use\", \"matched\": 400, \"returned\": 5, \"cases\": [{\"case_id\": \"CC-0044\", \"outcome\": \"confirmed_fraud\", \"pattern\": \"out_of_region_use\", \"exposure_usd\": 13.33, \"report_filed\": \"No\", \"analyst_notes\": \"Case CC-0044: cardholder C06147 reported unrecognized activity on card C06147-",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 6,
+      "tool": "knowledge_search",
+      "args": {
+        "query": "out_of_region_use fraud policy risk score threshold"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"hits\": [{\"id\": \"POLICY-OVERVIEW\", \"title\": \"Fraud Policy v1.0 \\u2014 overview\", \"snippet\": \"Every transaction carries a risk_score between 0 and 1 from the bank's detection model; it is a reason to look, never a verdict. Actions the agent may recommend: ALLOW_TRANSACTION, DECLINE_TRANSACTION, MONI",
+      "tokens": 0,
+      "latency_s": 0.0
+    }
+  ]
+}

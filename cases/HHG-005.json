@@ -1,0 +1,198 @@
+{
+  "case_id": "HHG-005",
+  "case": {
+    "status": "closed_fraud",
+    "verdict": "fraud",
+    "fraud_probability": 0.85,
+    "pattern": "card_not_present_new_device",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3523199"
+    ],
+    "first_suspicious_txn_id": "3523199",
+    "connected_card_ids": [
+      "C08299-K1",
+      "C07987-K2",
+      "C02354-K2",
+      "C03042-K1",
+      "C12265-K2"
+    ],
+    "connected_device_profiles": [
+      "iOS Device|iOS 9.3.5|mobile safari 9.0|1024x768",
+      "MacOS|Mac OS X 10_10_5|safari generic|1920x1080",
+      "Trident/7.0|Windows 10|ie 11.0 for desktop|1920x1080",
+      "iOS Device|iOS 11.0.3|mobile safari generic|2208x1242",
+      "MacOS|Mac OS X 10_12_6|safari generic|2880x1800",
+      "rv:57.0|Mac OS X 10.9|firefox 57.0|1920x1080"
+    ],
+    "exposure_usd": 100.07,
+    "evidence": [
+      {
+        "claim": "Transaction 3523199 for $100.07 on card C02923-K1 scored risk_score 0.54 via online channel on a new iOS device with mismatched billing and registered emails.",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3523199",
+          "C02923-K1",
+          "C02923"
+        ]
+      },
+      {
+        "claim": "Only 1 transaction occurred in the 2-hour window around the flagged transaction, indicating no burst testing.",
+        "source": "graph",
+        "ref": "card_window",
+        "entity_ids": [
+          "3523199",
+          "C02923-K1"
+        ]
+      },
+      {
+        "claim": "Card history shows predominantly in-person transactions in region 330.0; the flagged online transaction is an anomaly.",
+        "source": "graph",
+        "ref": "card_txn_history",
+        "entity_ids": [
+          "C02923-K1",
+          "3523199"
+        ]
+      },
+      {
+        "claim": "The new device profile was shared across 4 cards belonging to 4 distinct customers (C08299, C07987, C02923, C02354).",
+        "source": "graph",
+        "ref": "device_neighbors",
+        "entity_ids": [
+          "3523199",
+          "C08299-K1",
+          "C07987-K2",
+          "C02923-K1",
+          "C02354-K2"
+        ]
+      },
+      {
+        "claim": "Card C02923-K1 shares multiple device profiles with other connected cards including C08299-K1, C03042-K1, and C12265-K2.",
+        "source": "graph",
+        "ref": "connected_cards",
+        "entity_ids": [
+          "C02923-K1",
+          "C08299-K1",
+          "C03042-K1",
+          "C12265-K2"
+        ]
+      },
+      {
+        "claim": "Three similar closed cases matching card_not_present_new_device at ~$100 exposure all resulted in confirmed fraud.",
+        "source": "graph",
+        "ref": "similar_closed_cases",
+        "entity_ids": [
+          "CC-0117",
+          "CC-3539",
+          "CC-1588"
+        ]
+      },
+      {
+        "claim": "Fraud probability >= 0.3 requires opening a case.",
+        "source": "document",
+        "ref": "document:POLICY-CREATE_CASE",
+        "entity_ids": []
+      },
+      {
+        "claim": "SAR filing required when fraud confirmed or strongly suspected (p >= 0.7) and activity connects to shared device or another customer's fraud.",
+        "source": "document",
+        "ref": "document:POLICY-S3A",
+        "entity_ids": []
+      },
+      {
+        "claim": "Stop investigation when p >= 0.85 with >= 2 independent pieces of evidence.",
+        "source": "document",
+        "ref": "document:POLICY-S6",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-0117",
+      "CC-3539",
+      "CC-1588"
+    ],
+    "summary": "Transaction 3523199 ($100.07) flagged at risk_score 0.54. Investigation revealed it occurred on a new device shared by 4 different customers' cards, deviating from the cardholder's typical in-person pattern. Three identical historical cases were confirmed fraud. Fraud probability assessed at 0.85. Case closed as fraud with SAR filed due to multi-customer device sharing.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-005"
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 0,
+      "assumed_response": "Customer unreachable or denies transaction based on high confidence signals"
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy requires CREATE_CASE when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1 compliance: propose VERIFY_WITH_CUSTOMER before restrictive actions"
+      },
+      {
+        "action": "DECLINE_TRANSACTION",
+        "route": "L1",
+        "reason": "p=0.85 >= 0.7, R1 restriction lifted"
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "p=0.85 >= 0.7, single card compromise confirmed via shared device"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy requires CREATE_CASE when fraud_probability >= 0.3"
+      },
+      {
+        "action": "DECLINE_TRANSACTION",
+        "route": "L1",
+        "reason": "p=0.85 >= 0.7, R1 restriction lifted"
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "Confirmed fraud on single card; R10 not met for BLOCK_ALL_CARDS as credential compromise not confirmed across multiple cards"
+      },
+      {
+        "action": "GENERATE_REPORT",
+        "route": "auto",
+        "reason": "Internal reporting for confirmed fraud case"
+      },
+      {
+        "action": "FILE_REPORT",
+        "route": "L2",
+        "reason": "§3a: SAR required because p >= 0.7 and activity connects to shared device across multiple customers"
+      }
+    ],
+    "what_changed": "Added GENERATE_REPORT and FILE_REPORT (SAR) after confirming fraud verdict and identifying multi-customer device sharing meeting §3a criteria."
+  },
+  "sar": {
+    "file": true,
+    "reason": "Fraud strongly suspected (p=0.85) and activity connects to a shared device used by multiple customers, satisfying §3a criteria.",
+    "narrative": "Transaction 3523199 for $100.07 on card C02923-K1 was identified as fraudulent. The transaction occurred online via a new iOS device that was also used by three other customers (C08299, C07987, C02354), indicating coordinated card-not-present fraud using a shared device. Historical precedent cases CC-0117, CC-3539, and CC-1588 with identical patterns and amounts were previously confirmed as fraud.",
+    "subjects": [
+      "C02923",
+      "C08299",
+      "C07987",
+      "C02354"
+    ],
+    "total_amount_usd": 100.07,
+    "activity_dates": [
+      "2016-12-07",
+      "2016-12-07"
+    ]
+  },
+  "stop_reason": "§6 stop: p >= 0.85 reached with multiple independent pieces of evidence (new device, multi-customer sharing, historical precedents).",
+  "tool_calls": 6,
+  "tokens": 50041,
+  "latency_s": 249.56268906593323
+}

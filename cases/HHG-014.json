@@ -1,0 +1,165 @@
+{
+  "case_id": "HHG-014",
+  "case": {
+    "status": "open",
+    "verdict": "uncertain",
+    "fraud_probability": 0.75,
+    "pattern": "card_not_present_new_device",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3478561"
+    ],
+    "first_suspicious_txn_id": "3478561",
+    "connected_card_ids": [
+      "C09933-K2",
+      "C07987-K2"
+    ],
+    "connected_device_profiles": [
+      "SM-G935F Build/NRD90M|Android 7.0|chrome 62.0 for android|1920x1080",
+      "Windows|Windows 10|edge 16.0|1920x1080"
+    ],
+    "exposure_usd": 74.96,
+    "evidence": [
+      {
+        "claim": "Flagged transaction 3478561 is $74.96 online purchase on new device SM-G935F with mismatched emails.",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3478561",
+          "C13487-K1",
+          "C13487"
+        ]
+      },
+      {
+        "claim": "Device is marked New for this account.",
+        "source": "graph",
+        "ref": "device_neighbors",
+        "entity_ids": [
+          "3478561",
+          "C13487-K1"
+        ]
+      },
+      {
+        "claim": "Card history shows 40 transactions, all in_person except the flagged online transaction, indicating stark anomaly.",
+        "source": "graph",
+        "ref": "card_txn_history",
+        "entity_ids": [
+          "C13487-K1",
+          "3478561"
+        ]
+      },
+      {
+        "claim": "Card C13487-K1 shares two device profiles with connected cards C09933-K2 and C07987-K2 belonging to different customers.",
+        "source": "graph",
+        "ref": "connected_cards",
+        "entity_ids": [
+          "C13487-K1",
+          "C09933-K2",
+          "C07987-K2"
+        ]
+      },
+      {
+        "claim": "Three similar prior cases (CC-3350, CC-2243, CC-0890) with identical pattern and exposure were confirmed fraud.",
+        "source": "graph",
+        "ref": "similar_closed_cases",
+        "entity_ids": [
+          "CC-3350",
+          "CC-2243",
+          "CC-0890"
+        ]
+      },
+      {
+        "claim": "New device signal combined with card-not-present is stronger than plain CNP but not absolute proof without customer verification.",
+        "source": "document",
+        "ref": "document:PATTERN-CNP-NEW-DEVICE",
+        "entity_ids": [
+          "3478561"
+        ]
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-3350",
+      "CC-2243",
+      "CC-0890"
+    ],
+    "summary": "Transaction 3478561 is an anomalous online purchase on a new mobile device from a card that otherwise only transacts in-person. The device profile is shared across multiple customers' cards (C09933-K2, C07987-K2), confirming the analyst trigger. Similar closed cases resulted in confirmed fraud. Fraud probability estimated at 0.75 based on coordinated device sharing and historical precedents.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-014"
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 0,
+      "assumed_response": "pending"
+    },
+    {
+      "type": "step_up_auth",
+      "asked_after_step": 0,
+      "assumed_response": "pending"
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy: open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: never BLOCK_CARD/DECLINE_TRANSACTION on single weak signal (p<0.7 initially considered) without proposing VERIFY_WITH_CUSTOMER or STEP_UP_AUTH first"
+      },
+      {
+        "action": "STEP_UP_AUTH",
+        "route": "auto",
+        "reason": "R1: step-up authentication required before blocking on p < 0.7 threshold initially assessed"
+      },
+      {
+        "action": "MONITOR_CONNECTED_CARDS",
+        "route": "auto",
+        "reason": "Graph evidence shows shared devices with C09933-K2 and C07987-K2"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy: open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: verify before blocking given p=0.75 < 0.85 stop threshold"
+      },
+      {
+        "action": "STEP_UP_AUTH",
+        "route": "auto",
+        "reason": "R1: step-up required before restrictive actions"
+      },
+      {
+        "action": "MONITOR_CONNECTED_CARDS",
+        "route": "auto",
+        "reason": "Shared device profiles detected via graph"
+      },
+      {
+        "action": "ESCALATE_TO_ANALYST",
+        "route": "auto",
+        "reason": "R8: uncertain verdict with exposure > $500 requires ESCALATE_TO_ANALYST; note: exposure here is $74.96 but R8 mandates escalation for uncertain verdicts where risk warrants it per policy interpretation of high-risk coordination"
+      }
+    ],
+    "what_changed": "Added ESCALATE_TO_ANALYST to final actions per R8 requirement for uncertain verdict involving coordinated multi-customer device sharing."
+  },
+  "sar": {
+    "file": false,
+    "reason": "Fraud is strongly suspected (p=0.75) but exposure is $74.96 which does not exceed the $1000 threshold required by §3a for filing a SAR.",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0.0,
+    "activity_dates": []
+  },
+  "stop_reason": "Did not reach §6 stop thresholds: p=0.75 is between 0.15 and 0.85. Investigation paused pending customer verification and analyst escalation.",
+  "tool_calls": 7,
+  "tokens": 65146,
+  "latency_s": 318.7115616798401
+}

@@ -1,0 +1,83 @@
+{
+  "case_id": "HHG-011",
+  "model_version": "qwen/qwen3.8-max:free",
+  "snapshot_id": "",
+  "evidence_value": [],
+  "action_projections": [],
+  "tool_trace": [
+    {
+      "step": 0,
+      "tool": "transaction_features",
+      "args": {
+        "txn_id": "3583368"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3583368\", \"found\": true, \"amount\": 131.3, \"product_cd\": \"C\", \"channel\": \"online\", \"risk_score\": 0.39, \"region\": \"\", \"addr2\": \"\", \"p_email\": \"gmail.com\", \"r_email\": \"gmail.com\", \"ts\": \"2016-12-29 03:27:44\", \"customer_id\": \"C11923\", \"device\": {\"type\": \"mobile\", \"info\": \"SM-G610F Build/NRD9",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 1,
+      "tool": "card_txn_history",
+      "args": {
+        "card_id": "C11923-K2"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C11923-K2\", \"n\": 40, \"transactions\": [{\"txn_id\": \"3585345\", \"amount\": 41.3, \"ts\": \"2016-12-29 23:49:47\", \"channel\": \"online\", \"product_cd\": \"C\", \"risk_score\": 0.18, \"region\": \"\", \"p_email\": \"gmail.com\"}, {\"txn_id\": \"3585064\", \"amount\": 23.69, \"ts\": \"2016-12-29 22:12:18\", \"channel\": \"onl",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 2,
+      "tool": "card_window",
+      "args": {
+        "txn_id": "3583368"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3583368\", \"card_id\": \"C11923-K2\", \"hours\": 48.0, \"n\": 84, \"window\": [{\"txn_id\": \"3578405\", \"amount\": 61.67, \"ts\": \"2016-12-27 03:33:30\", \"channel\": \"online\", \"product_cd\": \"C\", \"risk_score\": 0.14, \"region\": \"\"}, {\"txn_id\": \"3578451\", \"amount\": 9.94, \"ts\": \"2016-12-27 04:31:11\", \"channel\"",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 3,
+      "tool": "device_neighbors",
+      "args": {
+        "txn_id": "3583368"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3583368\", \"device_id\": \"SM-G610F Build/NRD90M||chrome 66.0 for android\", \"device_info\": \"SM-G610F Build/NRD90M\", \"is_new\": \"New\", \"n_cards\": 1, \"cards\": [{\"card_id\": \"C11923-K2\", \"customer_id\": \"C11923\"}]}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 4,
+      "tool": "connected_cards",
+      "args": {
+        "card_id": "C11923-K2"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C11923-K2\", \"shared_devices\": [\"5015A Build/LMY47I||chrome 55.0 for android\", \"Linux x86_64||firefox 47.0\", \"LGLS770||chrome 60.0 for android\", \"SM-G531H Build/LMY48B||chrome 66.0 for android\", \"LG-X240 Build/MRA58K||chrome generic for android\", \"SM-A500FU Build/MMB29M||chrome 64.0 for ",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 5,
+      "tool": "similar_closed_cases",
+      "args": {
+        "pattern": "card_not_present_new_device",
+        "exposure_usd": 131.3,
+        "top_k": 3
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"pattern\": \"card_not_present_new_device\", \"matched\": 400, \"returned\": 3, \"cases\": [{\"case_id\": \"CC-0078\", \"outcome\": \"confirmed_fraud\", \"pattern\": \"card_not_present_new_device\", \"exposure_usd\": 131.31, \"report_filed\": \"No\", \"analyst_notes\": \"Case CC-0078: cardholder C00978 reported unrecognized act",
+      "tokens": 0,
+      "latency_s": 0.0
+    }
+  ]
+}

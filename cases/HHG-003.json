@@ -1,0 +1,142 @@
+{
+  "case_id": "HHG-003",
+  "case": {
+    "status": "open",
+    "verdict": "uncertain",
+    "fraud_probability": 0.4,
+    "pattern": "none",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3530164"
+    ],
+    "first_suspicious_txn_id": "3530164",
+    "connected_card_ids": [],
+    "connected_device_profiles": [
+      "Windows|Windows 8.1|chrome 62.0|1600x900",
+      "iOS Device|iOS 11.2.6|mobile safari 11.0|2732x2048",
+      "MacOS|Mac OS X 10_12_6|chrome 63.0|1440x900",
+      "LG-LS997 Build/NRD90M|Android 7.0|chrome 63.0 for android|2560x1440",
+      "SM-G955U Build/NRD90M|Android 7.0|chrom"
+    ],
+    "exposure_usd": 49.0,
+    "evidence": [
+      {
+        "claim": "Transaction 3530164 is a $49.00 in-person purchase in region 330.0 with model risk_score 0.4.",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3530164"
+        ]
+      },
+      {
+        "claim": "Customer C08623 reported they never made the $49.00 purchase on card C08623-K2.",
+        "source": "customer",
+        "ref": "customer_report",
+        "entity_ids": [
+          "C08623",
+          "C08623-K2",
+          "3530164"
+        ]
+      },
+      {
+        "claim": "Card history shows 40 transactions, all in-person product W across multiple regions, fitting normal spending pattern.",
+        "source": "graph",
+        "ref": "card_txn_history",
+        "entity_ids": [
+          "C08623-K2"
+        ]
+      },
+      {
+        "claim": "25 transactions in the 48h window around 3530164; all in-person, no rapid small-amount testing observed.",
+        "source": "graph",
+        "ref": "card_window",
+        "entity_ids": [
+          "3530164",
+          "C08623-K2"
+        ]
+      },
+      {
+        "claim": "No linked card_ids belonging to other customers found; only shared device profiles returned.",
+        "source": "graph",
+        "ref": "connected_cards",
+        "entity_ids": [
+          "C08623-K2"
+        ]
+      },
+      {
+        "claim": "R1: never BLOCK_CARD / DECLINE_TRANSACTION on a single weak signal (fraud_probability < 0.7) without first proposing VERIFY_WITH_CUSTOMER or STEP_UP_AUTH.",
+        "source": "document",
+        "ref": "document:POLICY-R1",
+        "entity_ids": []
+      },
+      {
+        "claim": "R8: an uncertain verdict with exposure > $500 MUST include ESCALATE_TO_ANALYST in final actions.",
+        "source": "document",
+        "ref": "document:POLICY-R8",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-1842"
+    ],
+    "summary": "Customer C08623 disputed a $49.00 in-person transaction (3530164). Model risk score is 0.4. Card history and 48h window show consistent in-person spending across multiple regions. No connected cards or fraud ring indicators. Verdict is uncertain pending customer verification. Exposure is $49.00 (<$500), so R8 escalation is not required.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-003"
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 0,
+      "assumed_response": "pending"
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Fraud Policy v1.0: Open a case once fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: p < 0.7 requires VERIFY_WITH_CUSTOMER or STEP_UP_AUTH before any block/decline"
+      },
+      {
+        "action": "MONITOR_CARD",
+        "route": "auto",
+        "reason": "Standard monitoring while case is open and verdict is uncertain"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Fraud Policy v1.0: Open a case once fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: p < 0.7 requires VERIFY_WITH_CUSTOMER or STEP_UP_AUTH before any block/decline"
+      },
+      {
+        "action": "MONITOR_CARD",
+        "route": "auto",
+        "reason": "Standard monitoring while case is open and verdict is uncertain"
+      }
+    ],
+    "what_changed": "nothing"
+  },
+  "sar": {
+    "file": false,
+    "reason": "§3a: SAR filed only if fraud confirmed or strongly suspected (p >= 0.7). Current p=0.4.",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0.0,
+    "activity_dates": []
+  },
+  "stop_reason": "Investigation complete pending customer verification. fraud_probability 0.4 is between 0.15 and 0.85 so §6 stop rule does not trigger automatic halt; stopping after gathering sufficient evidence from 5 tool calls.",
+  "tool_calls": 5,
+  "tokens": 40885,
+  "latency_s": 229.93811058998108
+}

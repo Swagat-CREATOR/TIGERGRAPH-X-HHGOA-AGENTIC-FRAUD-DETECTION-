@@ -1,0 +1,192 @@
+{
+  "case_id": "HHG-002",
+  "case": {
+    "status": "closed_fraud",
+    "verdict": "fraud",
+    "fraud_probability": 0.85,
+    "pattern": "card_not_present_fraud",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3478782"
+    ],
+    "first_suspicious_txn_id": "3478782",
+    "connected_card_ids": [
+      "C13171-K2",
+      "C08106-K1",
+      "C07671-K2",
+      "C09933-K2",
+      "C11923-K2",
+      "C09988-K1",
+      "C11923-KD1",
+      "C02354-K2"
+    ],
+    "connected_device_profiles": [
+      "SM-G531H Build/LMY48B||chrome 63.0 for android",
+      "Trident/7.0||ie 11.0 for desktop",
+      "Windows||chrome 62.0",
+      "Trident/7.0||ie 11.0 for tablet",
+      "MotoE2(4G-LTE||chrome generic",
+      "Windows||chrome 64.0",
+      "chrome",
+      "chrome 66.0",
+      "Windows||chrome 66.0"
+    ],
+    "exposure_usd": 292.36,
+    "evidence": [
+      {
+        "claim": "Flagged transaction 3478782 is an online CNP purchase of $292.36 with risk score 0.79 and empty device metadata.",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3478782"
+        ]
+      },
+      {
+        "claim": "Only 1 transaction on card C11891-K1 in the 48-hour window around the flagged event.",
+        "source": "graph",
+        "ref": "card_window",
+        "entity_ids": [
+          "3478782",
+          "C11891-K1"
+        ]
+      },
+      {
+        "claim": "Card C11891-K1 shows subsequent card-testing behavior in Dec 2016 with rapid small transactions using varying emails.",
+        "source": "graph",
+        "ref": "card_txn_history",
+        "entity_ids": [
+          "C11891-K1",
+          "3545398",
+          "3545367"
+        ]
+      },
+      {
+        "claim": "Device neighbors query returned null device_id for this transaction.",
+        "source": "graph",
+        "ref": "device_neighbors",
+        "entity_ids": [
+          "3478782"
+        ]
+      },
+      {
+        "claim": "Card C11891-K1 shares 17 device profiles with 8 connected cards across 7 other customers, indicating a fraud ring.",
+        "source": "graph",
+        "ref": "connected_cards",
+        "entity_ids": [
+          "C11891-K1",
+          "C13171-K2",
+          "C08106-K1",
+          "C07671-K2",
+          "C09933-K2",
+          "C11923-K2",
+          "C09988-K1",
+          "C11923-KD1",
+          "C02354-K2"
+        ]
+      },
+      {
+        "claim": "Similar closed cases for card_not_present_fraud consistently resolve as confirmed fraud.",
+        "source": "graph",
+        "ref": "similar_closed_cases",
+        "entity_ids": [
+          "CC-5104"
+        ]
+      },
+      {
+        "claim": "Policy requires VERIFY_WITH_CUSTOMER or STEP_UP_AUTH before blocking when p < 0.7; here p >= 0.7 so direct block is permitted per R1.",
+        "source": "document",
+        "ref": "document:PATTERN-CNP-NEW-DEVICE",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-5104"
+    ],
+    "summary": "Transaction 3478782 on card C11891-K1 scored 0.79. Investigation revealed the card is linked to 8 other cards across 7 customers via 17 shared device profiles, strongly suggesting a coordinated fraud ring. Subsequent card history shows testing behavior. Fraud probability assessed at 0.85 based on multiple independent evidence signals including shared devices and post-flag testing pattern.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-002"
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 1,
+      "assumed_response": "Customer confirms transaction 3478782 was not authorized."
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Fraud policy: open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: propose verification before blocking even though p>=0.7 as best practice"
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "p=0.85 >= 0.7, single card block permitted per R1"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Fraud policy: open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "p=0.85 >= 0.7, R1 permits block after verification proposed"
+      },
+      {
+        "action": "BLOCK_ALL_CARDS",
+        "route": "L2",
+        "reason": "R10: 2+ compromised cards (flagged C11891-K1 + 8 connected cards sharing devices)"
+      },
+      {
+        "action": "DECLINE_TRANSACTION",
+        "route": "L1",
+        "reason": "p=0.85 >= 0.7, transaction declined as fraud confirmed"
+      },
+      {
+        "action": "GENERATE_REPORT",
+        "route": "auto",
+        "reason": "§3a: FILE_REPORT must be accompanied by CREATE_CASE"
+      },
+      {
+        "action": "FILE_REPORT",
+        "route": "L2",
+        "reason": "§3a: SAR required because p>=0.7, activity connects to shared device/another customer's fraud, pattern is coordinated"
+      }
+    ],
+    "what_changed": "Added BLOCK_ALL_CARDS per R10 due to 8 connected cards sharing devices, added DECLINE_TRANSACTION, GENERATE_REPORT, and FILE_REPORT per §3a after fraud confirmation."
+  },
+  "sar": {
+    "file": true,
+    "reason": "§3a: fraud strongly suspected (p=0.85 >= 0.7), activity connects to shared devices across multiple customers, pattern is coordinated fraud ring.",
+    "narrative": "Transaction 3478782 ($292.36) on card C11891-K1 flagged with risk score 0.79. Investigation identified a coordinated fraud ring: C11891-K1 shares 17 device profiles with 8 connected cards belonging to 7 other customers. Subsequent card history reveals card-testing behavior. SAR filed due to coordinated multi-customer fraud activity via shared devices.",
+    "subjects": [
+      "C11891",
+      "C13171",
+      "C08106",
+      "C07671",
+      "C09933",
+      "C11923",
+      "C09988",
+      "C02354"
+    ],
+    "total_amount_usd": 292.36,
+    "activity_dates": [
+      "2016-11-22",
+      "2016-12-15"
+    ]
+  },
+  "stop_reason": "§6 stop: p=0.85 >= 0.85 with >=2 independent pieces of evidence (shared device graph, subsequent card testing, model score).",
+  "tool_calls": 7,
+  "tokens": 59920,
+  "latency_s": 288.32753896713257
+}

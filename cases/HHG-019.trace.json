@@ -1,0 +1,46 @@
+{
+  "case_id": "HHG-019",
+  "model_version": "qwen/qwen3.8-max:free",
+  "snapshot_id": "",
+  "evidence_value": [],
+  "action_projections": [],
+  "tool_trace": [
+    {
+      "step": 0,
+      "tool": "transaction_features",
+      "args": {
+        "txn_id": "3503878"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3503878\", \"found\": true, \"amount\": 99.92, \"product_cd\": \"R\", \"channel\": \"online\", \"risk_score\": 0.9, \"region\": \"264.0\", \"addr2\": \"87.0\", \"p_email\": \"verizon.net\", \"r_email\": \"gmail.com\", \"ts\": \"2016-12-01 17:28:53\", \"customer_id\": \"C07987\", \"device\": {\"type\": \"desktop\", \"info\": \"Windows\"",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 1,
+      "tool": "card_window",
+      "args": {
+        "txn_id": "3503878",
+        "hours": 2
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3503878\", \"card_id\": \"C07987-K2\", \"hours\": 2, \"n\": 1, \"window\": [{\"txn_id\": \"3503878\", \"amount\": 99.92, \"ts\": \"2016-12-01 17:28:53\", \"channel\": \"online\", \"product_cd\": \"R\", \"risk_score\": 0.9, \"region\": \"264.0\"}]}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 2,
+      "tool": "device_neighbors",
+      "args": {
+        "txn_id": "3503878"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3503878\", \"device_id\": \"Windows|other|chrome 61.0|1280x720\", \"device_info\": \"Windows\", \"is_new\": \"New\", \"n_cards\": 1, \"cards\": [{\"card_id\": \"C07987-K2\", \"customer_id\": \"C07987\"}]}",
+      "tokens": 0,
+      "latency_s": 0.0
+    }
+  ]
+}

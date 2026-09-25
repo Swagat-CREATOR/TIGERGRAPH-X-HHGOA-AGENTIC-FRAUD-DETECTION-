@@ -1,0 +1,193 @@
+{
+  "case_id": "HHG-006",
+  "case": {
+    "status": "open",
+    "verdict": "uncertain",
+    "fraud_probability": 0.75,
+    "pattern": "card_not_present_new_device",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3476682",
+      "3476602",
+      "3476633",
+      "3476665"
+    ],
+    "first_suspicious_txn_id": "3476602",
+    "connected_card_ids": [
+      "C03042-K1",
+      "C05876-K2",
+      "C09933-K2",
+      "C07987-K2",
+      "C02354-K2",
+      "C04570-K1"
+    ],
+    "connected_device_profiles": [
+      "iOS Device|iOS 11.2.1|mobile safari 11.0|2208x1242",
+      "Trident/7.0|Windows 7|ie 11.0 for desktop|1920x1080"
+    ],
+    "exposure_usd": 1906.07,
+    "evidence": [
+      {
+        "claim": "Customer C07297 reported unrecognized $482.12 purchase on card C07297-K1, transaction 3476682.",
+        "source": "customer",
+        "ref": "customer_report",
+        "entity_ids": [
+          "C07297",
+          "C07297-K1",
+          "3476682"
+        ]
+      },
+      {
+        "claim": "Transaction 3476682 was online from a device marked New for this account (Trident/7.0|Windows 7|ie 11.0 for desktop|1920x1080).",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3476682",
+          "C07297-K1"
+        ]
+      },
+      {
+        "claim": "Burst of 4 online product C transactions occurred within 30 minutes on 2016-11-21: 3476602 ($478.95), 3476633 ($456.96), 3476665 ($488.04), 3476682 ($482.12).",
+        "source": "graph",
+        "ref": "card_window",
+        "entity_ids": [
+          "3476602",
+          "3476633",
+          "3476665",
+          "3476682",
+          "C07297-K1"
+        ]
+      },
+      {
+        "claim": "The new device profile is shared by 4 cards across different customers including C09933-K2, C07987-K2, C02354-K2.",
+        "source": "graph",
+        "ref": "device_neighbors",
+        "entity_ids": [
+          "C07297-K1",
+          "C09933-K2",
+          "C07987-K2",
+          "C02354-K2"
+        ]
+      },
+      {
+        "claim": "Card C07297-K1 has 6 connected cards via shared devices.",
+        "source": "graph",
+        "ref": "connected_cards",
+        "entity_ids": [
+          "C07297-K1",
+          "C03042-K1",
+          "C05876-K2",
+          "C09933-K2",
+          "C07987-K2",
+          "C02354-K2",
+          "C04570-K1"
+        ]
+      },
+      {
+        "claim": "Three similar closed cases (CC-4717, CC-1990, CC-1792) all resolved as confirmed_fraud with pattern card_not_present_new_device and similar exposure.",
+        "source": "graph",
+        "ref": "similar_closed_cases",
+        "entity_ids": [
+          "CC-4717",
+          "CC-1990",
+          "CC-1792"
+        ]
+      },
+      {
+        "claim": "Card-not-present fraud from a new device is stronger than plain CNP but not definitive proof without customer verification.",
+        "source": "document",
+        "ref": "document:PATTERN-CNP-NEW-DEVICE",
+        "entity_ids": [
+          "3476682"
+        ]
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-4717",
+      "CC-1990",
+      "CC-1792"
+    ],
+    "summary": "Customer C07297 reported unauthorized transaction 3476682 ($482.12). Investigation reveals a burst of 4 high-value online transactions within 30 minutes from a new device. The device is shared with multiple unrelated customers, indicating potential coordinated fraud. Similar historical cases were confirmed fraud. Fraud probability assessed at 0.75 based on strong signals, pending customer verification.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-006"
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 0,
+      "assumed_response": "Customer confirms they did not authorize the online transactions from the new device."
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy: open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: never BLOCK_CARD/DECLINE_TRANSACTION on single weak signal (p<0.7 initially) without VERIFY_WITH_CUSTOMER or STEP_UP_AUTH; p=0.75 still requires verification before blocking"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy: open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: verify before blocking given p=0.75 < 0.85"
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "Strong evidence of card compromise; R1 satisfied after VERIFY_WITH_CUSTOMER proposed in initial actions"
+      },
+      {
+        "action": "MONITOR_CONNECTED_CARDS",
+        "route": "auto",
+        "reason": "Device shared with other customers' cards per device_neighbors"
+      },
+      {
+        "action": "GENERATE_REPORT",
+        "route": "auto",
+        "reason": "Document suspicious activity internally"
+      },
+      {
+        "action": "FILE_REPORT",
+        "route": "L2",
+        "reason": "§3a: FILE_REPORT accompanied by CREATE_CASE; SAR filed because p>=0.7, exposure>$1000, and activity connects to shared device with other customers"
+      },
+      {
+        "action": "ESCALATE_TO_ANALYST",
+        "route": "auto",
+        "reason": "R8: uncertain verdict with exposure > $500 must include ESCALATE_TO_ANALYST in final actions"
+      }
+    ],
+    "what_changed": "Added BLOCK_CARD, MONITOR_CONNECTED_CARDS, GENERATE_REPORT, FILE_REPORT, and ESCALATE_TO_ANALYST after case creation and verification proposal."
+  },
+  "sar": {
+    "file": true,
+    "reason": "§3a: fraud strongly suspected (p=0.75), exposure $1906.07 > $1000, and activity connects to a shared device used by other customers.",
+    "narrative": "Customer C07297 reported unauthorized transaction 3476682 for $482.12. Investigation identified a burst of 4 online transactions totaling $1906.07 within 30 minutes on 2016-11-21 from a new device (Trident/7.0|Windows 7|ie 11.0 for desktop|1920x1080). This device is shared with cards belonging to customers C09933, C07987, and C02354, suggesting coordinated card-not-present fraud from a new device. Three similar prior cases were confirmed fraud.",
+    "subjects": [
+      "C07297",
+      "C09933",
+      "C07987",
+      "C02354"
+    ],
+    "total_amount_usd": 1906.07,
+    "activity_dates": [
+      "2016-11-21",
+      "2016-11-21"
+    ]
+  },
+  "stop_reason": "p=0.75 does not meet §6 stop thresholds (>=0.85 or <=0.15); investigation continues pending customer verification.",
+  "tool_calls": 7,
+  "tokens": 63858,
+  "latency_s": 286.9371430873871
+}

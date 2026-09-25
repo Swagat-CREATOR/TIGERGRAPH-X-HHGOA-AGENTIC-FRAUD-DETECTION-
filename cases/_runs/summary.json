@@ -1,0 +1,1126 @@
+{
+  "model": "qwen/qwen3.8-max:free",
+  "n_cases": 20,
+  "pipelines": {
+    "P1": {
+      "n_ok": 20,
+      "n_clean": 20,
+      "n_fail": 0,
+      "tokens_total": 60110,
+      "tool_calls_total": 0,
+      "latency_total_s": 423.5,
+      "verdicts": {
+        "uncertain": 20
+      },
+      "cases": [
+        {
+          "case_id": "HHG-001",
+          "verdict": "uncertain",
+          "pattern": "none",
+          "p": 0.61,
+          "exposure": 77.07,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 2681,
+          "latency_s": 18.0,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-002",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.79,
+          "exposure": 292.36,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 2646,
+          "latency_s": 24.0,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-003",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.5,
+          "exposure": 49.0,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 2603,
+          "latency_s": 16.3,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-004",
+          "verdict": "uncertain",
+          "pattern": "none",
+          "p": 0.5,
+          "exposure": 128.33,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "MONITOR_CARD"
+          ],
+          "tool_calls": 0,
+          "tokens": 2657,
+          "latency_s": 17.8,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-005",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.54,
+          "exposure": 100.07,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "MONITOR_CARD",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 2881,
+          "latency_s": 22.5,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-006",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.5,
+          "exposure": 482.12,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "MONITOR_CARD"
+          ],
+          "tool_calls": 0,
+          "tokens": 6745,
+          "latency_s": 38.6,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-007",
+          "verdict": "uncertain",
+          "pattern": "out_of_region_use",
+          "p": 0.87,
+          "exposure": 111.92,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "DECLINE_TRANSACTION",
+            "VERIFY_WITH_CUSTOMER"
+          ],
+          "tool_calls": 0,
+          "tokens": 2704,
+          "latency_s": 18.4,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-008",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.5,
+          "exposure": 55.68,
+          "sar": false,
+          "final_actions": [
+            "VERIFY_WITH_CUSTOMER",
+            "CREATE_CASE"
+          ],
+          "tool_calls": 0,
+          "tokens": 2490,
+          "latency_s": 14.6,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-009",
+          "verdict": "uncertain",
+          "pattern": "none",
+          "p": 0.5,
+          "exposure": 30.02,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 2604,
+          "latency_s": 17.0,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-010",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.9,
+          "exposure": 1000.03,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 2608,
+          "latency_s": 18.0,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-011",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.5,
+          "exposure": 131.3,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "MONITOR_CARD",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 2649,
+          "latency_s": 18.1,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-012",
+          "verdict": "uncertain",
+          "pattern": "none",
+          "p": 0.55,
+          "exposure": 30.91,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "MONITOR_CARD"
+          ],
+          "tool_calls": 0,
+          "tokens": 2774,
+          "latency_s": 21.6,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-013",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.76,
+          "exposure": 35.66,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "MONITOR_CARD",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 2693,
+          "latency_s": 20.6,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-014",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_new_device",
+          "p": 0.6,
+          "exposure": 100.0,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "MONITOR_CARD",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 5563,
+          "latency_s": 39.9,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-015",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.77,
+          "exposure": 599.94,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "MONITOR_CARD",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 2723,
+          "latency_s": 19.6,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-016",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.5,
+          "exposure": 59.67,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "MONITOR_CARD",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 2647,
+          "latency_s": 16.9,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-017",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.57,
+          "exposure": 100.09,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "MONITOR_CARD",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 2606,
+          "latency_s": 16.5,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-018",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.5,
+          "exposure": 39.08,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER"
+          ],
+          "tool_calls": 0,
+          "tokens": 2533,
+          "latency_s": 22.2,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-019",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.9,
+          "exposure": 99.92,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 2692,
+          "latency_s": 23.4,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-020",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.52,
+          "exposure": 125.08,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "MONITOR_CARD"
+          ],
+          "tool_calls": 0,
+          "tokens": 2611,
+          "latency_s": 19.5,
+          "violations": []
+        }
+      ],
+      "failures": []
+    },
+    "P2": {
+      "n_ok": 19,
+      "n_clean": 19,
+      "n_fail": 1,
+      "tokens_total": 169687,
+      "tool_calls_total": 0,
+      "latency_total_s": 1140.0,
+      "verdicts": {
+        "fraud": 1,
+        "legitimate": 1,
+        "uncertain": 17
+      },
+      "cases": [
+        {
+          "case_id": "HHG-002",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.79,
+          "exposure": 292.36,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 7131,
+          "latency_s": 36.3,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-003",
+          "verdict": "uncertain",
+          "pattern": "none",
+          "p": 0.4,
+          "exposure": 49.0,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "MONITOR_CARD",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 7622,
+          "latency_s": 41.1,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-004",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.5,
+          "exposure": 128.33,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 7132,
+          "latency_s": 71.0,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-005",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_new_device",
+          "p": 0.65,
+          "exposure": 100.07,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "MONITOR_CARD",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 7994,
+          "latency_s": 40.2,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-006",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_new_device",
+          "p": 0.75,
+          "exposure": 482.12,
+          "sar": true,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "BLOCK_CARD",
+            "MONITOR_CONNECTED_CARDS",
+            "ESCALATE_TO_ANALYST",
+            "FILE_REPORT"
+          ],
+          "tool_calls": 0,
+          "tokens": 16256,
+          "latency_s": 107.0,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-007",
+          "verdict": "legitimate",
+          "pattern": "none",
+          "p": 0.05,
+          "exposure": 0.0,
+          "sar": false,
+          "final_actions": [
+            "CLOSE_NO_FRAUD"
+          ],
+          "tool_calls": 0,
+          "tokens": 7655,
+          "latency_s": 50.2,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-008",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.65,
+          "exposure": 166.97,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "MONITOR_CARD",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 7613,
+          "latency_s": 53.1,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-009",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_new_device",
+          "p": 0.75,
+          "exposure": 30.02,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "MONITOR_CARD",
+            "MONITOR_CONNECTED_CARDS",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 7826,
+          "latency_s": 60.2,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-010",
+          "verdict": "fraud",
+          "pattern": "card_not_present_new_device",
+          "p": 0.9,
+          "exposure": 1000.03,
+          "sar": true,
+          "final_actions": [
+            "DECLINE_TRANSACTION",
+            "BLOCK_CARD",
+            "CREATE_CASE",
+            "FILE_REPORT",
+            "MONITOR_CONNECTED_CARDS"
+          ],
+          "tool_calls": 0,
+          "tokens": 24627,
+          "latency_s": 150.5,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-011",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.5,
+          "exposure": 131.3,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "MONITOR_CARD",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 7578,
+          "latency_s": 50.8,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-012",
+          "verdict": "uncertain",
+          "pattern": "out_of_region_use",
+          "p": 0.55,
+          "exposure": 30.91,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 7580,
+          "latency_s": 49.7,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-013",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_new_device",
+          "p": 0.76,
+          "exposure": 35.66,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "ESCALATE_TO_ANALYST",
+            "MONITOR_CARD"
+          ],
+          "tool_calls": 0,
+          "tokens": 7562,
+          "latency_s": 48.9,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-014",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_new_device",
+          "p": 0.72,
+          "exposure": 74.96,
+          "sar": true,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "MONITOR_CARD",
+            "MONITOR_CONNECTED_CARDS",
+            "FILE_REPORT",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 7238,
+          "latency_s": 61.9,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-015",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.77,
+          "exposure": 599.94,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 7879,
+          "latency_s": 53.2,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-016",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_new_device",
+          "p": 0.55,
+          "exposure": 59.67,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "MONITOR_CARD",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 7236,
+          "latency_s": 54.6,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-017",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_fraud",
+          "p": 0.57,
+          "exposure": 300.14,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "MONITOR_CARD",
+            "MONITOR_CONNECTED_CARDS",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 7664,
+          "latency_s": 55.6,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-018",
+          "verdict": "uncertain",
+          "pattern": "none",
+          "p": 0.5,
+          "exposure": 39.08,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "MONITOR_CARD"
+          ],
+          "tool_calls": 0,
+          "tokens": 7602,
+          "latency_s": 46.0,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-019",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_new_device",
+          "p": 0.9,
+          "exposure": 99.92,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 7869,
+          "latency_s": 52.5,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-020",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_new_device",
+          "p": 0.52,
+          "exposure": 125.08,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "MONITOR_CONNECTED_CARDS",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 0,
+          "tokens": 7623,
+          "latency_s": 57.2,
+          "violations": []
+        }
+      ],
+      "failures": [
+        {
+          "case_id": "HHG-001",
+          "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://api.xkiro.com/v1/chat/completions"
+        }
+      ]
+    },
+    "P3": {
+      "n_ok": 20,
+      "n_clean": 20,
+      "n_fail": 0,
+      "tokens_total": 987435,
+      "tool_calls_total": 121,
+      "latency_total_s": 5007.3,
+      "verdicts": {
+        "fraud": 8,
+        "legitimate": 1,
+        "uncertain": 11
+      },
+      "cases": [
+        {
+          "case_id": "HHG-001",
+          "verdict": "uncertain",
+          "pattern": "out_of_region_use",
+          "p": 0.85,
+          "exposure": 77.07,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "BLOCK_CARD",
+            "MONITOR_CONNECTED_CARDS",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 7,
+          "tokens": 55441,
+          "latency_s": 268.2,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-002",
+          "verdict": "fraud",
+          "pattern": "card_not_present_fraud",
+          "p": 0.85,
+          "exposure": 292.36,
+          "sar": true,
+          "final_actions": [
+            "CREATE_CASE",
+            "BLOCK_CARD",
+            "BLOCK_ALL_CARDS",
+            "DECLINE_TRANSACTION",
+            "GENERATE_REPORT",
+            "FILE_REPORT"
+          ],
+          "tool_calls": 7,
+          "tokens": 59920,
+          "latency_s": 288.3,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-003",
+          "verdict": "uncertain",
+          "pattern": "none",
+          "p": 0.4,
+          "exposure": 49.0,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "MONITOR_CARD"
+          ],
+          "tool_calls": 5,
+          "tokens": 40885,
+          "latency_s": 229.9,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-004",
+          "verdict": "fraud",
+          "pattern": "card_not_present_new_device",
+          "p": 0.85,
+          "exposure": 128.33,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "BLOCK_CARD",
+            "GENERATE_REPORT",
+            "DECLINE_TRANSACTION"
+          ],
+          "tool_calls": 6,
+          "tokens": 48713,
+          "latency_s": 235.7,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-005",
+          "verdict": "fraud",
+          "pattern": "card_not_present_new_device",
+          "p": 0.85,
+          "exposure": 100.07,
+          "sar": true,
+          "final_actions": [
+            "CREATE_CASE",
+            "DECLINE_TRANSACTION",
+            "BLOCK_CARD",
+            "GENERATE_REPORT",
+            "FILE_REPORT"
+          ],
+          "tool_calls": 6,
+          "tokens": 50041,
+          "latency_s": 249.6,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-006",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_new_device",
+          "p": 0.75,
+          "exposure": 1906.07,
+          "sar": true,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "BLOCK_CARD",
+            "MONITOR_CONNECTED_CARDS",
+            "GENERATE_REPORT",
+            "FILE_REPORT",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 7,
+          "tokens": 63858,
+          "latency_s": 286.9,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-007",
+          "verdict": "legitimate",
+          "pattern": "none",
+          "p": 0.1,
+          "exposure": 0.0,
+          "sar": false,
+          "final_actions": [
+            "CLOSE_NO_FRAUD"
+          ],
+          "tool_calls": 4,
+          "tokens": 29906,
+          "latency_s": 174.5,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-008",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_new_device",
+          "p": 0.75,
+          "exposure": 55.68,
+          "sar": true,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "ESCALATE_TO_ANALYST",
+            "MONITOR_CONNECTED_CARDS",
+            "FILE_REPORT",
+            "GENERATE_REPORT"
+          ],
+          "tool_calls": 8,
+          "tokens": 61074,
+          "latency_s": 259.9,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-009",
+          "verdict": "fraud",
+          "pattern": "card_not_present_fraud",
+          "p": 0.92,
+          "exposure": 30.02,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "BLOCK_CARD",
+            "DECLINE_TRANSACTION",
+            "GENERATE_REPORT"
+          ],
+          "tool_calls": 6,
+          "tokens": 49143,
+          "latency_s": 242.7,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-010",
+          "verdict": "fraud",
+          "pattern": "account_takeover",
+          "p": 0.9,
+          "exposure": 1000.03,
+          "sar": true,
+          "final_actions": [
+            "DECLINE_TRANSACTION",
+            "BLOCK_ALL_CARDS",
+            "CREATE_CASE",
+            "FILE_REPORT"
+          ],
+          "tool_calls": 6,
+          "tokens": 37521,
+          "latency_s": 260.5,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-011",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_new_device",
+          "p": 0.85,
+          "exposure": 131.3,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "BLOCK_CARD",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 6,
+          "tokens": 50964,
+          "latency_s": 248.9,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-012",
+          "verdict": "uncertain",
+          "pattern": "out_of_region_use",
+          "p": 0.55,
+          "exposure": 30.91,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "MONITOR_CARD"
+          ],
+          "tool_calls": 6,
+          "tokens": 48696,
+          "latency_s": 237.1,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-013",
+          "verdict": "fraud",
+          "pattern": "card_not_present_new_device",
+          "p": 0.85,
+          "exposure": 35.66,
+          "sar": true,
+          "final_actions": [
+            "BLOCK_CARD",
+            "CREATE_CASE",
+            "FILE_REPORT",
+            "GENERATE_REPORT",
+            "MONITOR_CONNECTED_CARDS"
+          ],
+          "tool_calls": 5,
+          "tokens": 39149,
+          "latency_s": 217.6,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-014",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_new_device",
+          "p": 0.75,
+          "exposure": 74.96,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "MONITOR_CONNECTED_CARDS",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 7,
+          "tokens": 65146,
+          "latency_s": 318.7,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-015",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_new_device",
+          "p": 0.77,
+          "exposure": 599.94,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "MONITOR_CARD",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 6,
+          "tokens": 49372,
+          "latency_s": 249.1,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-016",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_new_device",
+          "p": 0.75,
+          "exposure": 59.67,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "ESCALATE_TO_ANALYST"
+          ],
+          "tool_calls": 7,
+          "tokens": 65218,
+          "latency_s": 313.5,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-017",
+          "verdict": "uncertain",
+          "pattern": "card_not_present_new_device",
+          "p": 0.75,
+          "exposure": 300.14,
+          "sar": true,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER",
+            "STEP_UP_AUTH",
+            "ESCALATE_TO_ANALYST",
+            "FILE_REPORT",
+            "MONITOR_CONNECTED_CARDS"
+          ],
+          "tool_calls": 7,
+          "tokens": 48962,
+          "latency_s": 279.9,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-018",
+          "verdict": "uncertain",
+          "pattern": "none",
+          "p": 0.48,
+          "exposure": 39.08,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "VERIFY_WITH_CUSTOMER"
+          ],
+          "tool_calls": 5,
+          "tokens": 40771,
+          "latency_s": 203.1,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-019",
+          "verdict": "fraud",
+          "pattern": "card_not_present_new_device",
+          "p": 0.9,
+          "exposure": 99.92,
+          "sar": false,
+          "final_actions": [
+            "CREATE_CASE",
+            "DECLINE_TRANSACTION",
+            "BLOCK_CARD"
+          ],
+          "tool_calls": 3,
+          "tokens": 20468,
+          "latency_s": 151.4,
+          "violations": []
+        },
+        {
+          "case_id": "HHG-020",
+          "verdict": "fraud",
+          "pattern": "card_not_present_new_device",
+          "p": 0.88,
+          "exposure": 125.08,
+          "sar": true,
+          "final_actions": [
+            "CREATE_CASE",
+            "BLOCK_CARD",
+            "DECLINE_TRANSACTION",
+            "MONITOR_CONNECTED_CARDS",
+            "GENERATE_REPORT",
+            "FILE_REPORT"
+          ],
+          "tool_calls": 7,
+          "tokens": 62187,
+          "latency_s": 291.8,
+          "violations": []
+        }
+      ],
+      "failures": []
+    }
+  }
+}

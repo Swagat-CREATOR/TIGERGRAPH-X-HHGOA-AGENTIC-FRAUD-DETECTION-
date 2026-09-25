@@ -1,0 +1,97 @@
+{
+  "case_id": "HHG-014",
+  "model_version": "qwen/qwen3.8-max:free",
+  "snapshot_id": "",
+  "evidence_value": [],
+  "action_projections": [],
+  "tool_trace": [
+    {
+      "step": 0,
+      "tool": "transaction_features",
+      "args": {
+        "txn_id": "3478561"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3478561\", \"found\": true, \"amount\": 74.96, \"product_cd\": \"C\", \"channel\": \"online\", \"risk_score\": 0.05, \"region\": \"191.0\", \"addr2\": \"87.0\", \"p_email\": \"yahoo.com\", \"r_email\": \"gmail.com\", \"ts\": \"2016-11-22 16:11:00\", \"customer_id\": \"C13487\", \"device\": {\"type\": \"mobile\", \"info\": \"SM-G935F B",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 1,
+      "tool": "device_neighbors",
+      "args": {
+        "txn_id": "3478561"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3478561\", \"device_id\": \"SM-G935F Build/NRD90M|Android 7.0|chrome 62.0 for android|1920x1080\", \"device_info\": \"SM-G935F Build/NRD90M\", \"is_new\": \"New\", \"n_cards\": 1, \"cards\": [{\"card_id\": \"C13487-K1\", \"customer_id\": \"C13487\"}]}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 2,
+      "tool": "card_txn_history",
+      "args": {
+        "card_id": "C13487-K1"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C13487-K1\", \"n\": 40, \"transactions\": [{\"txn_id\": \"3578937\", \"amount\": 57.89, \"ts\": \"2016-12-27 14:43:09\", \"channel\": \"in_person\", \"product_cd\": \"W\", \"risk_score\": 0.2, \"region\": \"191.0\", \"p_email\": \"\"}, {\"txn_id\": \"3558767\", \"amount\": 48.03, \"ts\": \"2016-12-20 02:16:19\", \"channel\": \"in_p",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 3,
+      "tool": "card_window",
+      "args": {
+        "txn_id": "3478561",
+        "hours": 24
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3478561\", \"card_id\": \"C13487-K1\", \"hours\": 24, \"n\": 3, \"window\": [{\"txn_id\": \"3477218\", \"amount\": 36.04, \"ts\": \"2016-11-21 23:39:05\", \"channel\": \"in_person\", \"product_cd\": \"W\", \"risk_score\": 0.06, \"region\": \"191.0\"}, {\"txn_id\": \"3478561\", \"amount\": 74.96, \"ts\": \"2016-11-22 16:11:00\", \"ch",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 4,
+      "tool": "connected_cards",
+      "args": {
+        "card_id": "C13487-K1"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C13487-K1\", \"shared_devices\": [\"SM-G935F Build/NRD90M|Android 7.0|chrome 62.0 for android|1920x1080\", \"Windows|Windows 10|edge 16.0|1920x1080\"], \"n_connected\": 2, \"connected_cards\": [{\"card_id\": \"C09933-K2\", \"customer_id\": \"C09933\"}, {\"card_id\": \"C07987-K2\", \"customer_id\": \"C07987\"}]}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 5,
+      "tool": "similar_closed_cases",
+      "args": {
+        "pattern": "card_not_present_new_device",
+        "exposure_usd": 74.96,
+        "top_k": 3
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"pattern\": \"card_not_present_new_device\", \"matched\": 400, \"returned\": 3, \"cases\": [{\"case_id\": \"CC-3350\", \"outcome\": \"confirmed_fraud\", \"pattern\": \"card_not_present_new_device\", \"exposure_usd\": 74.93, \"report_filed\": \"No\", \"analyst_notes\": \"Case CC-3350: cardholder C07367 reported unrecognized acti",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 6,
+      "tool": "knowledge_search",
+      "args": {
+        "query": "card_not_present_new_device shared device fraud policy",
+        "top_k": 3
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"hits\": [{\"id\": \"PATTERN-CNP-NEW-DEVICE\", \"title\": \"Card-not-present fraud from a new device\", \"snippet\": \"Same as card-not-present fraud, with the identity record marking the device as New for this account, sometimes behind a proxy. Stronger than plain card-not-present fraud, still not proof: peop",
+      "tokens": 0,
+      "latency_s": 0.0
+    }
+  ]
+}

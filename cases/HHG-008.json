@@ -1,0 +1,163 @@
+{
+  "case_id": "HHG-008",
+  "case": {
+    "status": "escalated",
+    "verdict": "uncertain",
+    "fraud_probability": 0.75,
+    "pattern": "card_not_present_new_device",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3558054"
+    ],
+    "first_suspicious_txn_id": "3558054",
+    "connected_card_ids": [
+      "C08106-K1",
+      "C11923-K2",
+      "C11923-KD1"
+    ],
+    "connected_device_profiles": [
+      "chrome 66.0"
+    ],
+    "exposure_usd": 55.68,
+    "evidence": [
+      {
+        "claim": "Customer C13171 reported unrecognized $55.68 purchase on card C13171-K2.",
+        "source": "customer",
+        "ref": "customer_report",
+        "entity_ids": [
+          "C13171",
+          "C13171-K2",
+          "3558054"
+        ]
+      },
+      {
+        "claim": "Transaction 3558054 is online (card-not-present) with risk_score 0.38.",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3558054"
+        ]
+      },
+      {
+        "claim": "Device 'chrome 66.0' is marked New and is shared across 5 cards including C08106-K1, C11923-K2, C11923-KD1.",
+        "source": "graph",
+        "ref": "device_neighbors",
+        "entity_ids": [
+          "3558054",
+          "C13171-K2",
+          "C08106-K1",
+          "C11923-K2",
+          "C11923-KD1"
+        ]
+      },
+      {
+        "claim": "Card-not-present fraud from a new device is a stronger signal than plain CNP but not absolute proof.",
+        "source": "document",
+        "ref": "document:PATTERN-CNP-NEW-DEVICE",
+        "entity_ids": []
+      },
+      {
+        "claim": "Similar closed case CC-0948 was confirmed fraud for the same pattern and comparable amount ($56.40).",
+        "source": "graph",
+        "ref": "similar_closed_cases",
+        "entity_ids": [
+          "CC-0948"
+        ]
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-0948"
+    ],
+    "summary": "Customer C13171 reported an unauthorized $55.68 online transaction (3558054) on card C13171-K2. Investigation shows the transaction originated from a new device ('chrome 66.0') that is shared with at least 4 other cards belonging to different customers. Risk score is 0.38. Similar prior case CC-0948 resulted in confirmed fraud. Fraud probability assessed at 0.75 based on customer report, new device, shared device graph connections, and historical pattern match. Verdict is uncertain pending customer verification. R8 requires ESCALATE_TO_ANALYST because verdict is uncertain and exposure > $0 (though under $500, escalation is prudent given shared device). §3a SAR conditions met: p>=0.7 and activity connects to a shared device used by other customers.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-008"
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 1,
+      "assumed_response": "pending"
+    },
+    {
+      "type": "step_up_auth",
+      "asked_after_step": 1,
+      "assumed_response": "pending"
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy: open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: never BLOCK_CARD/DECLINE_TRANSACTION on single weak signal without VERIFY_WITH_CUSTOMER or STEP_UP_AUTH first"
+      },
+      {
+        "action": "STEP_UP_AUTH",
+        "route": "auto",
+        "reason": "R1: required before blocking when p < 0.7 initially; applied here as p=0.75 but still needs confirmation before final block"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy: open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: verify before declining/blocking"
+      },
+      {
+        "action": "STEP_UP_AUTH",
+        "route": "auto",
+        "reason": "R1: step up auth before blocking"
+      },
+      {
+        "action": "ESCALATE_TO_ANALYST",
+        "route": "auto",
+        "reason": "R8: uncertain verdict requires analyst review; shared device across multiple customers warrants manual investigation"
+      },
+      {
+        "action": "MONITOR_CONNECTED_CARDS",
+        "route": "auto",
+        "reason": "Shared device 'chrome 66.0' links to cards C08106-K1, C11923-K2, C11923-KD1 requiring monitoring"
+      },
+      {
+        "action": "FILE_REPORT",
+        "route": "L2",
+        "reason": "§3a: p >= 0.7 and activity connects to shared device used by other customers"
+      },
+      {
+        "action": "GENERATE_REPORT",
+        "route": "auto",
+        "reason": "Accompanying FILE_REPORT per §3a"
+      }
+    ],
+    "what_changed": "Added ESCALATE_TO_ANALYST, MONITOR_CONNECTED_CARDS, FILE_REPORT, and GENERATE_REPORT after full evidence review revealed shared device connections and similar confirmed fraud cases."
+  },
+  "sar": {
+    "file": true,
+    "reason": "Fraud strongly suspected (p=0.75) and activity connects to a shared device used by multiple other customers' cards, meeting §3a criteria.",
+    "narrative": "Customer C13171 reported unauthorized transaction 3558054 for $55.68 on card C13171-K2. The transaction was conducted online via a new device profile 'chrome 66.0'. Graph analysis reveals this device is shared with at least 4 other cards belonging to different customers (C08106, C11923), indicating potential coordinated card-not-present fraud using a compromised or shared endpoint. A similar historical case (CC-0948) was confirmed as fraud. Strongly suspected fraudulent activity connected to shared infrastructure.",
+    "subjects": [
+      "C13171",
+      "C08106",
+      "C11923"
+    ],
+    "total_amount_usd": 55.68,
+    "activity_dates": [
+      "2016-12-19",
+      "2016-12-19"
+    ]
+  },
+  "stop_reason": "max tool steps reached",
+  "tool_calls": 8,
+  "tokens": 61074,
+  "latency_s": 259.9077181816101
+}

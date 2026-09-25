@@ -1,0 +1,85 @@
+{
+  "case_id": "HHG-005",
+  "model_version": "qwen/qwen3.8-max:free",
+  "snapshot_id": "",
+  "evidence_value": [],
+  "action_projections": [],
+  "tool_trace": [
+    {
+      "step": 0,
+      "tool": "transaction_features",
+      "args": {
+        "txn_id": "3523199"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3523199\", \"found\": true, \"amount\": 100.07, \"product_cd\": \"R\", \"channel\": \"online\", \"risk_score\": 0.54, \"region\": \"330.0\", \"addr2\": \"87.0\", \"p_email\": \"icloud.com\", \"r_email\": \"gmail.com\", \"ts\": \"2016-12-07 21:38:37\", \"customer_id\": \"C02923\", \"device\": {\"type\": \"mobile\", \"info\": \"iOS Devi",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 1,
+      "tool": "card_window",
+      "args": {
+        "txn_id": "3523199",
+        "hours": 2
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3523199\", \"card_id\": \"C02923-K1\", \"hours\": 2, \"n\": 1, \"window\": [{\"txn_id\": \"3523199\", \"amount\": 100.07, \"ts\": \"2016-12-07 21:38:37\", \"channel\": \"online\", \"product_cd\": \"R\", \"risk_score\": 0.54, \"region\": \"330.0\"}]}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 2,
+      "tool": "card_txn_history",
+      "args": {
+        "card_id": "C02923-K1",
+        "limit": 10
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C02923-K1\", \"n\": 10, \"transactions\": [{\"txn_id\": \"3532043\", \"amount\": 117.07, \"ts\": \"2016-12-10 23:28:09\", \"channel\": \"in_person\", \"product_cd\": \"W\", \"risk_score\": 0.14, \"region\": \"330.0\", \"p_email\": \"\"}, {\"txn_id\": \"3523199\", \"amount\": 100.07, \"ts\": \"2016-12-07 21:38:37\", \"channel\": \"o",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 3,
+      "tool": "device_neighbors",
+      "args": {
+        "txn_id": "3523199"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3523199\", \"device_id\": \"iOS Device|iOS 9.3.5|mobile safari 9.0|1024x768\", \"device_info\": \"iOS Device\", \"is_new\": \"New\", \"n_cards\": 4, \"cards\": [{\"card_id\": \"C08299-K1\", \"customer_id\": \"C08299\"}, {\"card_id\": \"C07987-K2\", \"customer_id\": \"C07987\"}, {\"card_id\": \"C02923-K1\", \"customer_id\": \"C",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 4,
+      "tool": "connected_cards",
+      "args": {
+        "card_id": "C02923-K1"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C02923-K1\", \"shared_devices\": [\"MacOS|Mac OS X 10_10_5|safari generic|1920x1080\", \"Trident/7.0|Windows 10|ie 11.0 for desktop|1920x1080\", \"iOS Device|iOS 11.0.3|mobile safari generic|2208x1242\", \"MacOS|Mac OS X 10_12_6|safari generic|2880x1800\", \"rv:57.0|Mac OS X 10.9|firefox 57.0|1920x",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 5,
+      "tool": "similar_closed_cases",
+      "args": {
+        "pattern": "card_not_present_new_device",
+        "exposure_usd": 100.07,
+        "top_k": 3
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"pattern\": \"card_not_present_new_device\", \"matched\": 400, \"returned\": 3, \"cases\": [{\"case_id\": \"CC-0117\", \"outcome\": \"confirmed_fraud\", \"pattern\": \"card_not_present_new_device\", \"exposure_usd\": 100.06, \"report_filed\": \"No\", \"analyst_notes\": \"Case CC-0117: cardholder C03409 reported unrecognized act",
+      "tokens": 0,
+      "latency_s": 0.0
+    }
+  ]
+}

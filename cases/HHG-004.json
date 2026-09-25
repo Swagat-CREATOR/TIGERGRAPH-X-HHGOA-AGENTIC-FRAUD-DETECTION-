@@ -1,0 +1,140 @@
+{
+  "case_id": "HHG-004",
+  "case": {
+    "status": "closed_fraud",
+    "verdict": "fraud",
+    "fraud_probability": 0.85,
+    "pattern": "card_not_present_new_device",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3583227"
+    ],
+    "first_suspicious_txn_id": "3583227",
+    "connected_card_ids": [],
+    "connected_device_profiles": [
+      "firefox 47.0"
+    ],
+    "exposure_usd": 128.33,
+    "evidence": [
+      {
+        "claim": "Customer C08106 reported transaction 3583227 ($128.33) as unrecognized.",
+        "source": "customer",
+        "ref": "customer_report",
+        "entity_ids": [
+          "C08106",
+          "3583227"
+        ]
+      },
+      {
+        "claim": "Transaction 3583227 was conducted on a new device (firefox 47.0) via online channel with risk score 0.34.",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3583227",
+          "C08106-K1"
+        ]
+      },
+      {
+        "claim": "Device firefox 47.0 is associated only with card C08106-K1 and customer C08106.",
+        "source": "graph",
+        "ref": "device_neighbors",
+        "entity_ids": [
+          "3583227",
+          "C08106-K1",
+          "C08106"
+        ]
+      },
+      {
+        "claim": "Only one transaction occurred in the 6-hour window around 3583227; no card testing burst detected.",
+        "source": "graph",
+        "ref": "card_window",
+        "entity_ids": [
+          "3583227",
+          "C08106-K1"
+        ]
+      },
+      {
+        "claim": "Similar closed cases for card_not_present_new_device at ~$129 exposure resulted in confirmed_fraud.",
+        "source": "graph",
+        "ref": "similar_closed_cases",
+        "entity_ids": [
+          "CC-0945"
+        ]
+      },
+      {
+        "claim": "Fraud probability >= 0.85 triggers §6 stop rule when supported by >=2 independent pieces of evidence.",
+        "source": "document",
+        "ref": "document:POLICY-§6",
+        "entity_ids": []
+      },
+      {
+        "claim": "A SAR must be filed if fraud is confirmed or strongly suspected (p >= 0.7) AND exposure > $1000 or other §3a conditions met.",
+        "source": "document",
+        "ref": "document:POLICY-§3a",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-0945"
+    ],
+    "summary": "Customer C08106 reported transaction 3583227 as unrecognized. Investigation confirmed the transaction occurred on a new device (firefox 47.0) via online channel. Fraud probability assessed at 0.85 based on customer report and new device indicator, matching prior confirmed fraud cases. Case closed as fraud per §6 stop rule.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-004"
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 0,
+      "assumed_response": "Customer confirms transaction 3583227 was not authorized."
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy requires CREATE_CASE when fraud_probability >= 0.3"
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "R1 permits BLOCK_CARD when p >= 0.7 without prior VERIFY_WITH_CUSTOMER"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy requires CREATE_CASE when fraud_probability >= 0.3"
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "R1 permits BLOCK_CARD when p >= 0.7"
+      },
+      {
+        "action": "GENERATE_REPORT",
+        "route": "auto",
+        "reason": "Internal reporting for confirmed fraud case"
+      },
+      {
+        "action": "DECLINE_TRANSACTION",
+        "route": "L1",
+        "reason": "Confirmed fraudulent transaction declined"
+      }
+    ],
+    "what_changed": "Added GENERATE_REPORT and DECLINE_TRANSACTION after investigation concluded with confirmed fraud verdict."
+  },
+  "sar": {
+    "file": false,
+    "reason": "Exposure $128.33 does not exceed $1000 threshold, no shared device/region connecting to another customer's fraud, and pattern is not coordinated per §3a.",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0.0,
+    "activity_dates": []
+  },
+  "stop_reason": "§6 stop: fraud_probability >= 0.85 with >=2 independent pieces of evidence (customer report + new device).",
+  "tool_calls": 6,
+  "tokens": 48713,
+  "latency_s": 235.7475655078888
+}

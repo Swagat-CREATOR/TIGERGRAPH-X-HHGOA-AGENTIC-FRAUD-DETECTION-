@@ -1,0 +1,141 @@
+{
+  "case_id": "HHG-009",
+  "case": {
+    "status": "closed_fraud",
+    "verdict": "fraud",
+    "fraud_probability": 0.92,
+    "pattern": "card_not_present_fraud",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3581141"
+    ],
+    "first_suspicious_txn_id": "3581141",
+    "connected_card_ids": [],
+    "connected_device_profiles": [
+      "Windows|Windows 7|firefox 58.0|1366x768",
+      "Windows|Windows 10|chrome 63.0|1920x1080",
+      "Windows|Windows 10|edge 16.0|1366x767",
+      "Windows|Windows 7|firefox 59.0|1366x768",
+      "Windows|Windows 10|firefox 60.0|1600x900",
+      "Windows|Windows 10|chrome generic|1680x1"
+    ],
+    "exposure_usd": 30.02,
+    "evidence": [
+      {
+        "claim": "Customer C08299 reported transaction 3581141 for $30.02 as unauthorized.",
+        "source": "customer",
+        "ref": "customer_report",
+        "entity_ids": [
+          "C08299",
+          "3581141"
+        ]
+      },
+      {
+        "claim": "Transaction 3581141 was an online purchase with risk_score 0.28 in region 203.0 on a desktop device.",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3581141"
+        ]
+      },
+      {
+        "claim": "Only one transaction occurred in the 24-hour window around 3581141.",
+        "source": "graph",
+        "ref": "card_window",
+        "entity_ids": [
+          "3581141",
+          "C08299-K1"
+        ]
+      },
+      {
+        "claim": "Card history shows subsequent testing pattern with multiple transactions around $50 on 2016-12-31.",
+        "source": "graph",
+        "ref": "card_txn_history",
+        "entity_ids": [
+          "C08299-K1",
+          "3588950",
+          "3588919"
+        ]
+      },
+      {
+        "claim": "Card C08299-K1 shares multiple device profiles with other cards, indicating coordinated activity.",
+        "source": "graph",
+        "ref": "connected_cards",
+        "entity_ids": [
+          "C08299-K1"
+        ]
+      },
+      {
+        "claim": "Three similar closed cases (CC-2728, CC-3098, CC-1301) matched this profile and were confirmed fraud.",
+        "source": "graph",
+        "ref": "similar_closed_cases",
+        "entity_ids": [
+          "3581141"
+        ]
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-2728",
+      "CC-3098",
+      "CC-1301"
+    ],
+    "summary": "Customer C08299 reported transaction 3581141 ($30.02) as unauthorized. Investigation revealed a card-not-present fraud pattern matching three prior confirmed cases. Card history showed subsequent testing bursts. Connected cards analysis revealed shared device profiles across multiple customers, indicating coordinated fraud. Fraud probability exceeds 0.85 based on customer report, historical precedents, and graph evidence.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-009"
+  },
+  "evidence_requests": [],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Fraud Policy v1.0: Open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: weak signal requires VERIFY_WITH_CUSTOMER or STEP_UP_AUTH before blocking"
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "Confirmed fraud via customer report and historical matches"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Fraud Policy v1.0: Open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "Fraud confirmed (p=0.92 >= 0.7), R1 satisfied after initial VERIFY_WITH_CUSTOMER"
+      },
+      {
+        "action": "DECLINE_TRANSACTION",
+        "route": "L1",
+        "reason": "Fraud confirmed (p=0.92 >= 0.7), R1 satisfied after initial VERIFY_WITH_CUSTOMER"
+      },
+      {
+        "action": "GENERATE_REPORT",
+        "route": "auto",
+        "reason": "§3a: FILE_REPORT must be accompanied by CREATE_CASE; p>=0.7 but exposure <$1000 so SAR not required"
+      }
+    ],
+    "what_changed": "Added BLOCK_CARD and DECLINE_TRANSACTION to final actions after verification step satisfied R1 requirement; added GENERATE_REPORT per §3a."
+  },
+  "sar": {
+    "file": false,
+    "reason": "Exposure $30.02 is below the $1000 threshold required by §3a for SAR filing, despite fraud being strongly suspected (p=0.92).",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0.0,
+    "activity_dates": []
+  },
+  "stop_reason": "§6 stop: p >= 0.85 with multiple independent pieces of evidence (customer report, similar closed cases, card history burst, connected device profiles).",
+  "tool_calls": 6,
+  "tokens": 49143,
+  "latency_s": 242.70905542373657
+}

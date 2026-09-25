@@ -1,0 +1,72 @@
+{
+  "case_id": "HHG-013",
+  "model_version": "qwen/qwen3.8-max:free",
+  "snapshot_id": "",
+  "evidence_value": [],
+  "action_projections": [],
+  "tool_trace": [
+    {
+      "step": 0,
+      "tool": "transaction_features",
+      "args": {
+        "txn_id": "3526826"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3526826\", \"found\": true, \"amount\": 35.66, \"product_cd\": \"C\", \"channel\": \"online\", \"risk_score\": 0.76, \"region\": \"\", \"addr2\": \"\", \"p_email\": \"gmail.com\", \"r_email\": \"gmail.com\", \"ts\": \"2016-12-09 02:39:29\", \"customer_id\": \"C07671\", \"device\": {\"type\": \"desktop\", \"info\": \"Windows\", \"os\": \"\"",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 1,
+      "tool": "card_window",
+      "args": {
+        "txn_id": "3526826",
+        "hours": 2
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3526826\", \"card_id\": \"C07671-K2\", \"hours\": 2, \"n\": 3, \"window\": [{\"txn_id\": \"3526677\", \"amount\": 58.87, \"ts\": \"2016-12-09 01:26:56\", \"channel\": \"in_person\", \"product_cd\": \"W\", \"risk_score\": 0.08, \"region\": \"310.0\"}, {\"txn_id\": \"3526747\", \"amount\": 43.86, \"ts\": \"2016-12-09 02:04:41\", \"cha",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 2,
+      "tool": "device_neighbors",
+      "args": {
+        "txn_id": "3526826"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3526826\", \"device_id\": \"Windows||chrome 66.0\", \"device_info\": \"Windows\", \"is_new\": \"Found\", \"n_cards\": 8, \"cards\": [{\"card_id\": \"C13171-K2\", \"customer_id\": \"C13171\"}, {\"card_id\": \"C08106-K1\", \"customer_id\": \"C08106\"}, {\"card_id\": \"C11891-K1\", \"customer_id\": \"C11891\"}, {\"card_id\": \"C07671",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 3,
+      "tool": "connected_cards",
+      "args": {
+        "card_id": "C07671-K2"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C07671-K2\", \"shared_devices\": [\"Windows||chrome 66.0\", \"iOS Device|iOS 11.1.2|mobile safari generic|2436x1125\", \"Windows|Windows 10|chrome 63.0|1366x768\", \"SAMSUNG SM-G950U Build/NRD90M|Android 7.0|samsung browser 6.4|2220x1080\", \"LG-H871|Android 7.0|firefox|2672x1440\", \"iOS Device|iOS ",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 4,
+      "tool": "similar_closed_cases",
+      "args": {
+        "pattern": "card_not_present_new_device",
+        "exposure_usd": 35.66,
+        "top_k": 3
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"pattern\": \"card_not_present_new_device\", \"matched\": 400, \"returned\": 3, \"cases\": [{\"case_id\": \"CC-5106\", \"outcome\": \"confirmed_fraud\", \"pattern\": \"card_not_present_new_device\", \"exposure_usd\": 35.95, \"report_filed\": \"No\", \"analyst_notes\": \"Case CC-5106: cardholder C04965 reported unrecognized acti",
+      "tokens": 0,
+      "latency_s": 0.0
+    }
+  ]
+}

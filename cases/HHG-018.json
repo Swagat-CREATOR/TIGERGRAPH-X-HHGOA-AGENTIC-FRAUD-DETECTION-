@@ -1,0 +1,129 @@
+{
+  "case_id": "HHG-018",
+  "case": {
+    "status": "open",
+    "verdict": "uncertain",
+    "fraud_probability": 0.48,
+    "pattern": "none",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3491361"
+    ],
+    "first_suspicious_txn_id": "3491361",
+    "connected_card_ids": [],
+    "connected_device_profiles": [
+      "LG-M210 Build/NRD90U|Android 7.0|chrome 65.0 for android|1280x720",
+      "MacOS|Mac OS X 10_13_1|chrome 63.0|1440x900",
+      "Windows|Windows 10|chrome 58.0|1280x1024",
+      "iOS Device|iOS 11.2.5|mobile safari generic|2436x1125",
+      "SAMSUNG SM-G920P Build/NRD90M|Android"
+    ],
+    "exposure_usd": 39.08,
+    "evidence": [
+      {
+        "claim": "Customer C02354 reported they never made the $39.08 purchase for transaction 3491361.",
+        "source": "customer",
+        "ref": "customer_report",
+        "entity_ids": [
+          "C02354",
+          "3491361"
+        ]
+      },
+      {
+        "claim": "Transaction 3491361 is in-person, amount $39.08, risk_score 0.48, region 126.0, timestamp 2016-11-27 13:41:26.",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3491361",
+          "C02354-K2",
+          "C02354"
+        ]
+      },
+      {
+        "claim": "Card C02354-K2 has 158 transactions in the 48-hour window around 3491361 with no rapid-fire micro-transaction burst indicative of card_testing.",
+        "source": "graph",
+        "ref": "card_window",
+        "entity_ids": [
+          "3491361",
+          "C02354-K2"
+        ]
+      },
+      {
+        "claim": "Card C02354-K2 history shows consistent in-person usage continuing through December 2016, fitting normal spending profile.",
+        "source": "graph",
+        "ref": "card_txn_history",
+        "entity_ids": [
+          "C02354-K2"
+        ]
+      },
+      {
+        "claim": "Card C02354-K2 shares multiple device profiles typical for a customer using multiple devices over time; no fraud ring indicators.",
+        "source": "graph",
+        "ref": "connected_cards",
+        "entity_ids": [
+          "C02354-K2"
+        ]
+      },
+      {
+        "claim": "Similar closed cases for pattern none were cleared after cardholder verification.",
+        "source": "graph",
+        "ref": "similar_closed_cases",
+        "entity_ids": [
+          "CC-1842"
+        ]
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-1842"
+    ],
+    "summary": "Customer C02354 disputed a $39.08 in-person transaction (3491361) on card C02354-K2. The model risk score is 0.48. Card history and 48-hour window show consistent in-person activity without testing bursts. Fraud probability is below 0.7, so R1 requires VERIFY_WITH_CUSTOMER before any blocking action. Verdict is uncertain pending customer confirmation.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-018"
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 0,
+      "assumed_response": "pending"
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Fraud Policy v1.0: open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: single weak signal (p=0.48 < 0.7) requires VERIFY_WITH_CUSTOMER or STEP_UP_AUTH before BLOCK/DECLINE"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Fraud Policy v1.0: open case when fraud_probability >= 0.3"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: single weak signal (p=0.48 < 0.7) requires VERIFY_WITH_CUSTOMER or STEP_UP_AUTH before BLOCK/DECLINE"
+      }
+    ],
+    "what_changed": "nothing"
+  },
+  "sar": {
+    "file": false,
+    "reason": "Fraud probability 0.48 is below 0.7 threshold required by §3a to file a SAR, and exposure is under $1000.",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0.0,
+    "activity_dates": []
+  },
+  "stop_reason": "Investigation paused pending customer verification as required by R1 for p < 0.7. Stop rule §6 not triggered (0.15 < 0.48 < 0.85).",
+  "tool_calls": 5,
+  "tokens": 40771,
+  "latency_s": 203.088942527771
+}

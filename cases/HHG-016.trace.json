@@ -1,0 +1,93 @@
+{
+  "case_id": "HHG-016",
+  "model_version": "qwen/qwen3.8-max:free",
+  "snapshot_id": "",
+  "evidence_value": [],
+  "action_projections": [],
+  "tool_trace": [
+    {
+      "step": 0,
+      "tool": "transaction_features",
+      "args": {
+        "txn_id": "3534820"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3534820\", \"found\": true, \"amount\": 59.67, \"product_cd\": \"C\", \"channel\": \"online\", \"risk_score\": 0.37, \"region\": \"\", \"addr2\": \"\", \"p_email\": \"hotmail.com\", \"r_email\": \"hotmail.com\", \"ts\": \"2016-12-11 22:39:08\", \"customer_id\": \"C09988\", \"device\": {\"type\": \"desktop\", \"info\": \"Windows\", \"os\"",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 1,
+      "tool": "card_txn_history",
+      "args": {
+        "card_id": "C09988-K1"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C09988-K1\", \"n\": 40, \"transactions\": [{\"txn_id\": \"3571970\", \"amount\": 51.65, \"ts\": \"2016-12-24 19:28:38\", \"channel\": \"online\", \"product_cd\": \"C\", \"risk_score\": 0.03, \"region\": \"\", \"p_email\": \"hotmail.com\"}, {\"txn_id\": \"3571514\", \"amount\": 134.97, \"ts\": \"2016-12-24 17:01:59\", \"channel\": ",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 2,
+      "tool": "card_window",
+      "args": {
+        "txn_id": "3534820"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3534820\", \"card_id\": \"C09988-K1\", \"hours\": 48.0, \"n\": 1, \"window\": [{\"txn_id\": \"3534820\", \"amount\": 59.67, \"ts\": \"2016-12-11 22:39:08\", \"channel\": \"online\", \"product_cd\": \"C\", \"risk_score\": 0.37, \"region\": \"\"}]}",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 3,
+      "tool": "device_neighbors",
+      "args": {
+        "txn_id": "3534820"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"txn_id\": \"3534820\", \"device_id\": \"Windows||edge 16.0\", \"device_info\": \"Windows\", \"is_new\": \"New\", \"n_cards\": 4, \"cards\": [{\"card_id\": \"C09988-K1\", \"customer_id\": \"C09988\"}, {\"card_id\": \"C13171-K2\", \"customer_id\": \"C13171\"}, {\"card_id\": \"C08106-K1\", \"customer_id\": \"C08106\"}, {\"card_id\": \"C11923-K2\"",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 4,
+      "tool": "connected_cards",
+      "args": {
+        "card_id": "C09988-K1"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"card_id\": \"C09988-K1\", \"shared_devices\": [\"Moto G (4) Build/NPJS25.93-14-13||chrome generic\", \"safari generic\", \"Windows||chrome 66.0\", \"Windows||chrome 63.0\", \"SM-J320FN Build/LMY47V||chrome 66.0 for android\", \"chrome 64.0\", \"safari 10.0\", \"Windows||chrome 64.0\", \"mobile safari generic\", \"SAMSUNG",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 5,
+      "tool": "similar_closed_cases",
+      "args": {
+        "pattern": "card_not_present_new_device"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"pattern\": \"card_not_present_new_device\", \"matched\": 400, \"returned\": 5, \"cases\": [{\"case_id\": \"CC-4159\", \"outcome\": \"confirmed_fraud\", \"pattern\": \"card_not_present_new_device\", \"exposure_usd\": 4.72, \"report_filed\": \"No\", \"analyst_notes\": \"Case CC-4159: cardholder C13527 reported unrecognized activ",
+      "tokens": 0,
+      "latency_s": 0.0
+    },
+    {
+      "step": 6,
+      "tool": "knowledge_search",
+      "args": {
+        "query": "card_not_present_new_device shared device fraud ring policy SAR filing threshold"
+      },
+      "ok": true,
+      "error": "",
+      "result_summary": "{\"hits\": [{\"id\": \"PATTERN-CNP-NEW-DEVICE\", \"title\": \"Card-not-present fraud from a new device\", \"snippet\": \"Same as card-not-present fraud, with the identity record marking the device as New for this account, sometimes behind a proxy. Stronger than plain card-not-present fraud, still not proof: peop",
+      "tokens": 0,
+      "latency_s": 0.0
+    }
+  ]
+}

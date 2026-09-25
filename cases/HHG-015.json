@@ -1,0 +1,192 @@
+{
+  "case_id": "HHG-015",
+  "case": {
+    "status": "open",
+    "verdict": "uncertain",
+    "fraud_probability": 0.77,
+    "pattern": "card_not_present_new_device",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3464869"
+    ],
+    "first_suspicious_txn_id": "3464869",
+    "connected_card_ids": [],
+    "connected_device_profiles": [
+      "Windows|Windows 10|chrome 64.0|1600x900",
+      "Windows|Windows 10|chrome 63.0|1920x1080",
+      "Windows|Windows 7|chrome 65.0|1280x1024",
+      "Windows|Windows 10|chrome 62.0|1600x900",
+      "iOS Device|iOS 11.3.0|mobile safari generic|1334x750"
+    ],
+    "exposure_usd": 599.94,
+    "evidence": [
+      {
+        "claim": "Transaction 3464869 scored risk_score 0.77 on a new device with anonymous.com emails.",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3464869"
+        ]
+      },
+      {
+        "claim": "Only 1 transaction in the 2-hour window; no card testing burst.",
+        "source": "graph",
+        "ref": "card_window",
+        "entity_ids": [
+          "3464869"
+        ]
+      },
+      {
+        "claim": "Card history shows typical low-risk transactions; flagged amount is unusually high.",
+        "source": "graph",
+        "ref": "card_txn_history",
+        "entity_ids": [
+          "C03042-K1"
+        ]
+      },
+      {
+        "claim": "New device profile associated exclusively with card C03042-K1 and customer C03042.",
+        "source": "graph",
+        "ref": "device_neighbors",
+        "entity_ids": [
+          "3464869",
+          "C03042-K1",
+          "C03042"
+        ]
+      },
+      {
+        "claim": "Card shares multiple device profiles but the specific device for this transaction was new.",
+        "source": "graph",
+        "ref": "connected_cards",
+        "entity_ids": [
+          "C03042-K1"
+        ]
+      },
+      {
+        "claim": "Three similar closed cases (CC-2661, CC-4675, CC-5121) resulted in confirmed fraud for card_not_present_new_device pattern with similar exposure.",
+        "source": "graph",
+        "ref": "similar_closed_cases",
+        "entity_ids": [
+          "CC-2661",
+          "CC-4675",
+          "CC-5121"
+        ]
+      },
+      {
+        "claim": "Fraud probability >= 0.3 requires CREATE_CASE.",
+        "source": "document",
+        "ref": "document:POLICY-CREATE_CASE",
+        "entity_ids": []
+      },
+      {
+        "claim": "R1 prohibits BLOCK_CARD or DECLINE_TRANSACTION when fraud_probability < 0.7 without first proposing VERIFY_WITH_CUSTOMER or STEP_UP_AUTH.",
+        "source": "document",
+        "ref": "document:POLICY-R1",
+        "entity_ids": []
+      },
+      {
+        "claim": "R8 requires ESCALATE_TO_ANALYST in final actions for uncertain verdict with exposure > $500.",
+        "source": "document",
+        "ref": "document:POLICY-R8",
+        "entity_ids": []
+      },
+      {
+        "claim": "R10 restricts BLOCK_ALL_CARDS to 2+ compromised cards or confirmed account_takeover.",
+        "source": "document",
+        "ref": "document:POLICY-R10",
+        "entity_ids": []
+      },
+      {
+        "claim": "§3a requires FILE_REPORT accompanied by CREATE_CASE and SAR iff fraud confirmed or strongly suspected (p>=0.7) with qualifying conditions.",
+        "source": "document",
+        "ref": "document:POLICY-3a",
+        "entity_ids": []
+      },
+      {
+        "claim": "§6 stop rule triggers when p >= 0.85 or p <= 0.15 with >=2 independent pieces of evidence.",
+        "source": "document",
+        "ref": "document:POLICY-6",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-2661",
+      "CC-4675",
+      "CC-5121"
+    ],
+    "summary": "Transaction 3464869 ($599.94) flagged at risk_score 0.77. Evidence includes use of a new device, anonymous emails, unusually high amount compared to card history, and three prior confirmed-fraud cases with identical pattern and exposure. Fraud probability remains 0.77 pending customer verification. Verdict is uncertain as fraud is strongly suspected but not yet confirmed.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-015"
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 1,
+      "assumed_response": "Customer has not yet been contacted; response pending."
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy requires case creation when fraud_probability >= 0.3 (document:POLICY-CREATE_CASE)"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1 requires VERIFY_WITH_CUSTOMER or STEP_UP_AUTH before any blocking action when fraud_probability < 0.7 threshold is borderline at 0.77 (document:POLICY-R1)"
+      },
+      {
+        "action": "STEP_UP_AUTH",
+        "route": "auto",
+        "reason": "R1 alternative to verify identity on new device transaction (document:POLICY-R1)"
+      },
+      {
+        "action": "MONITOR_CARD",
+        "route": "auto",
+        "reason": "Ongoing monitoring warranted given elevated risk score and new device usage"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Policy requires case creation when fraud_probability >= 0.3 (document:POLICY-CREATE_CASE)"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1 requires customer verification before blocking actions (document:POLICY-R1)"
+      },
+      {
+        "action": "STEP_UP_AUTH",
+        "route": "auto",
+        "reason": "R1 requires step-up authentication for new device transaction (document:POLICY-R1)"
+      },
+      {
+        "action": "MONITOR_CARD",
+        "route": "auto",
+        "reason": "Continued monitoring due to suspicious indicators"
+      },
+      {
+        "action": "ESCALATE_TO_ANALYST",
+        "route": "auto",
+        "reason": "R8 mandates escalation for uncertain verdict with exposure > $500 (document:POLICY-R8)"
+      }
+    ],
+    "what_changed": "Added ESCALATE_TO_ANALYST per R8 because verdict is uncertain and exposure $599.94 exceeds $500 threshold."
+  },
+  "sar": {
+    "file": false,
+    "reason": "SAR filing requires confirmed or strongly suspected fraud; while p=0.77 meets the threshold, verdict remains uncertain pending customer verification. FILE_REPORT not included in final actions per §3a requirements awaiting confirmation.",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0.0,
+    "activity_dates": []
+  },
+  "stop_reason": "Did not meet §6 stop criteria: fraud_probability 0.77 is neither >= 0.85 nor <= 0.15. Investigation continues pending customer verification.",
+  "tool_calls": 6,
+  "tokens": 49372,
+  "latency_s": 249.11834025382996
+}

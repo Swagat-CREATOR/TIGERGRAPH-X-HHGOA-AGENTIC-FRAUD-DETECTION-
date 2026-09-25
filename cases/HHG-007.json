@@ -1,0 +1,96 @@
+{
+  "case_id": "HHG-007",
+  "case": {
+    "status": "closed_legitimate",
+    "verdict": "legitimate",
+    "fraud_probability": 0.1,
+    "pattern": "none",
+    "pattern_description": "",
+    "affected_txn_ids": [],
+    "first_suspicious_txn_id": "",
+    "connected_card_ids": [],
+    "connected_device_profiles": [],
+    "exposure_usd": 0.0,
+    "evidence": [
+      {
+        "claim": "Transaction 3514948 is an in-person purchase of $111.92 in the cardholder billing region 264.0 with no device anomalies.",
+        "source": "graph",
+        "ref": "transaction_features",
+        "entity_ids": [
+          "3514948",
+          "C09933-K2",
+          "C09933"
+        ]
+      },
+      {
+        "claim": "Card window and history show consistent in-person spending in region 264.0 with low risk scores, matching established behavior.",
+        "source": "graph",
+        "ref": "card_window",
+        "entity_ids": [
+          "3514948",
+          "C09933-K2"
+        ]
+      },
+      {
+        "claim": "Similar closed cases CC-1842, CC-1149, CC-1049 were cleared after cardholder confirmation of legitimate activity.",
+        "source": "graph",
+        "ref": "similar_closed_cases",
+        "entity_ids": [
+          "CC-1842",
+          "CC-1149",
+          "CC-1049"
+        ]
+      },
+      {
+        "claim": "Per §6, investigation stops when p <= 0.15 with >=2 independent pieces of evidence.",
+        "source": "document",
+        "ref": "document:POLICY-§6",
+        "entity_ids": []
+      },
+      {
+        "claim": "A legitimate verdict carries NO affected_txn_ids, exposure_usd=0, and no SAR.",
+        "source": "document",
+        "ref": "document:POLICY-LEGITIMATE",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-1842",
+      "CC-1149",
+      "CC-1049"
+    ],
+    "summary": "Transaction 3514948 flagged at 0.87 but behavioral evidence from card_window and transaction_features confirms normal in-person regional spending. Two independent pieces of evidence establish fraud_probability <= 0.15. Per §6 stop rule, investigation halted. Verdict is legitimate per policy requiring no affected transactions, zero exposure, and no SAR.",
+    "written_to_graph": true,
+    "graph_case_id": "IC-HHG-007"
+  },
+  "evidence_requests": [],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CLOSE_NO_FRAUD",
+        "route": "auto",
+        "reason": "§6 stop rule triggered; legitimate verdict"
+      }
+    ],
+    "final": [
+      {
+        "action": "CLOSE_NO_FRAUD",
+        "route": "auto",
+        "reason": "§6 stop rule triggered; legitimate verdict"
+      }
+    ],
+    "what_changed": "nothing"
+  },
+  "sar": {
+    "file": false,
+    "reason": "Legitimate verdict carries no SAR per policy.",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0.0,
+    "activity_dates": []
+  },
+  "stop_reason": "§6: p <= 0.15 with >=2 independent pieces of evidence (normal in-person regional history and matching cleared precedents).",
+  "tool_calls": 4,
+  "tokens": 29906,
+  "latency_s": 174.48654198646545
+}

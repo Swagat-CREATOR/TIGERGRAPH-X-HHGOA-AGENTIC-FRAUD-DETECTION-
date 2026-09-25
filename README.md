@@ -230,7 +230,5 @@ report.html    single-file results dashboard
 - **P2 exam is 19/20** — HHG-001 hit a transient gateway 500; the backfill was skipped to conserve budget.
 - **The shared model is `qwen/qwen3.8-max:free`**, reached via a Gemini → Groq → xkiro provider-fallback chain after the free tiers were exhausted. It is still **one model held constant across all three pipelines**, so the comparison remains fair (ADR-0005 supersedes the model choice in ADR-0002).
 
-## ✅ What's left (owner tasks)
 
-These require the project owner and are outside the code: record the **demo video**, publish the **write-up / blog**, post the **social announcement** (tag `@TigerGraphDB`), and push the **public GitHub repo**. The technical submission — graph, pipelines, both scoreboards, deliverable answers, and this report — is complete and reproducible.
 
